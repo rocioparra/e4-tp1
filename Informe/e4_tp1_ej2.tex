@@ -5,6 +5,188 @@
 \section{Ejercicio 2}
 
 
+El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor DC/DC donde la tensi\'on de salida es menor que la de entrada. El mismo puede observarse en la figura \ref{fig:buck-ideal}. En esta secci\'on, consideraremos ideal a la llave con la que se hace el switching.
+
+
+\begin{figure}[ht]
+	\centering
+	
+	\includegraphics[width=0.7\textwidth]{images/ej2/buck_ideal.pdf}
+	\caption{Fuente buck con llave ideal}
+	\label{fig:buck-ideal}
+\end{figure}
+
+
+Esta fuente debe cumplir los siguientes requerimientos:
+
+\begin{table}[ht]
+	\centering
+	\begin{tabular}{c|c|c}
+		$V_I$ (V) & $V_O$ (V) & $\nicefrac{\Delta V_O}{V_O}_{max}$ (\%) \\ \hline
+		9.0       & 3.7       & 5                                       \\ 
+	\end{tabular}
+	\caption{Requerimientos de entrada/salida de la fuente}
+	\label{tab:vin-vout}
+\end{table}
+
+
+Esto se debe lograr a una frecuencia de switching de $f_s = 50$kHz. En cuanto a los componentes pasivos, los reactivos son sugeridos por la c\'atedra: $L=220\upmu$H y $C=10\upmu$F. La resistencia de carga  debe ser elegida de manera tal que, en primera instancia, la fuente funcione en modo continuo.
+
+
+
+\subsection{An\'alisis te\'orico}
+
+\subsubsection{Con componentes ideales}
+
+Para obtener la salida indicada, debemos seleccionar el duty adecuado. Esto se puede obtener planteando que en r\'egimen permanente, $\langle V_L \rangle = 0$, y por lo tanto, $\langle V_O \rangle = \langle V_D \rangle$. Considerando al diodo como ideal, su tensi\'on es 0 cuando la llave est\'a abierta, y $V_I$ cuando est\'a cerrada. Por lo tanto, despejado para $D$ obtenemos que:
+\begin{equation}
+	D = \frac{V_O}{V_I} \simeq 0.41
+\end{equation}  
+
+Con este valor, podemos ahora obtener la corriente de boundary. Sabiendo que cuando la llave est\'a abierta, $V_L = L \frac{di_L}{dt} = -V_0$, y que esta condici\'on se mantiene por un tiempo $T_s \cdot (1-D)$, se obtiene:
+\begin{equation}
+	\Delta I_L = \frac{V_O}{L} \cdot (1-D) \cdot T_s \simeq 0.20\text{A}
+\end{equation} 
+
+Con lo cual la corriente de boundary es:
+\begin{equation}
+	I_{B} = \frac{\Delta I_L}{2} \simeq 0.10\text{A}
+\end{equation}
+
+Para que $I_O > I_B$, elegimos pues $R = 10\Omega$, lo cual resulta en una corriente de salida de 0.37A.
+
+El ripple de tensi\'on, por otro lado, es entonces de:
+\begin{equation}
+	\frac{\Delta V_O}{V_O} 
+	= \frac{1}{V_O} \cdot \frac{\Delta Q}{C} 
+	= \frac{1}{V_O} 
+	\cdot \frac{1}{C} \cdot \frac{1}{2} \cdot \frac{\Delta I_L}{2} \frac{T_s}{2}
+	\simeq 1.23 \%
+\end{equation}
+
+Este valor se encuentra por debajo del m\'aximo aceptable de 5\%.
+
+
+\subsubsection{Considerando la tensi\'on forward del diodo}
+
+El an\'alisis anterior sirve como primera aproximaci\'on del comportamiento del circuito. Sin embargo, a la hora de simular, resulta evidente que no es suficiente: la tensi\'on obtenida a la salida es considerablemente menor a la que se requiere, de alrededor de 3.2V.
+
+En primer lugar, podemos observar que si bien es cierto que $V_O = \langle V_D \rangle$, en la secci\'on anterior consideramos que cuando la llave est\'a cerrada, la tensi\'on en el diodo es nula. Sin embargo, sabemos que esto no es cierto: el diodo estar\'a forward-biased, con lo cual su tensi\'on no ser\'a otra que la de forward. 
+
+En la datasheet del 
+MUR460\footnote{
+	\url{https://www.onsemi.com/pub/Collateral/MUR420-D.PDF}
+}, el diodo sugerido por la c\'atedra, la figura 6 muestra la relaci\'on entre la tensi\'on forward y la corriente forward. Como la corriente ser\'a la de salida, 0.37A, la tensi\'on estar\'a entre $\sim$0.75V (a 100$^\circ$C) y 
+$\sim$0.85V (a 25$^\circ$C). 
+De la figura 9, obtenemos que para una onda cuadrada de corriente forward de 0.37A, la potencia disipada ser\'a de alrededor de 0.4W, que teniendo en cuenta que $R_{\Theta JA}=50$ (nota 2 de la datasheet, asumiendo montaje 1), el diodo calentar\'a alrededor de 20$^\circ$C sobre la temperatura ambiente. Por lo tanto, la temperatura no ser\'a ni 25 ni 100 grados, si no que rondar\'a los 40, dependiendo de la temperatura ambiente. Supondremos pues $V_{FD}= 0.8$V de tensi\'on forward en el diodo.
+
+Una vez que contamos con este valor, podemos calcular el nuevo valor de la tensi\'on de salida: 
+\begin{equation}
+	V_O = \langle V_D \rangle = D \cdot V_I - (1-D) \cdot V_{DF}   
+\end{equation}
+
+Despejando para $D$, obtenemos:
+\begin{equation}
+	D = \frac{V_O + V_{DF}}{V_I + V_{DF}} 
+	= \frac{3.7V + 0.8V}{9V + 0.8V} 
+	\simeq 0.46 
+\end{equation}
+
+Esto a su vez cambiar\'a el valor de los ripples de tensi\'on y corriente, puesto que no s\'olo a la tensi\'on de la bobina durante $T_{off}$ se le suma la tensi\'on forward del diodo, sino que adem\'as al aumentar $D$, disminuye $T_{off}$. Resulta entonces: 
+\begin{equation}
+	\Delta I_L = \frac{V_O + V_{DF}}{L} \cdot (1-D) \cdot T_s
+	\simeq 0.22\text{A}
+\end{equation} 
+
+Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimos operando en modo continuo con 10$\Omega$ de carga. En cuanto al ripple de tensi\'on:
+\begin{equation}
+\frac{\Delta V_O}{V_O}  
+= \frac{1}{V_O} 
+\cdot \frac{1}{C} \cdot \frac{1}{2} \cdot \frac{\Delta I_L}{2} \frac{T_s}{2}
+\simeq 1.53 \%
+\label{eq:result-ripple-diodo}
+\end{equation}
+
+
+\subsubsection{Considerando las ESR de la bobina y el capacitor}
+
+Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se observa en la figura \ref{fig:buck-esrs}.
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.7\textwidth]{images/ej2/buck_esrs.pdf}
+	\caption{Fuente buck, considerando las ESR de la bobina y del capacitor}
+	\label{fig:buck-esrs}
+\end{figure}
+
+
+Para seguir cumpliendo con $\langle V_L \rangle = 0$, debe cumplirse ahora que $\langle V_D \rangle = \langle V_O \rangle + \langle V_{rL} \rangle$. Como la corriente media de la bobina es la de salida, la tensi\'on media de su ESR no ser\'a otra cosa que $\frac{r_L}{R} \cdot V_O$. 
+
+La datasheet de la bobina sugerida por la 
+c\'atedra\footnote{
+	\url{https://abracon.com/Magnetics/radial/AIUR-03.pdf}
+} lista a esta ESR con el valor de 0.65$\Omega$.
+Despejando para $D$, obtenemos pues:
+\begin{equation}
+	D = \frac{V_O \cdot \left( 1+ \frac{r_L}{R}\right)+ V_{DF}}{V_I + V_{DF}} 
+= \frac{3.7V \cdot \left( 1+ \frac{0.65\Omega}{10\Omega}\right) + 0.8V}{9V + 0.8V} 
+\simeq 0.48 
+\end{equation}
+
+
+En cuanto al ripple, el mismo se ve afectado por la ESR del capacitor, ya que ahora $V_O = V_C + V_{rC}$, con lo cual los efectos de ambos componentes deben tenerse en cuenta. El \textit{application report} ``Output Ripple Voltage for Buck Switching Regulator'' de Texas Instruments\footnote{ 
+	\url{http://www.ti.com/lit/an/slva630a/slva630a.pdf}
+} realiza el an\'alisis correspondiente, que si bien no es de gran complejidad, s\'i implica un desarrollo demasiado extenso para incluir en este informe paso por paso. El mismo consiste en obtener la $v_o(t) = v_c(t) + v_{rC}(t)$, para los tramos $t<T_{on}$ y el $t>T_{on}$, derivar para buscar el m\'aximo y el m\'inimo de esa funci\'on por tramos, evaluar en esos puntos y obtener la diferencia.
+
+Como los tiempos donde se encontrar\'ian el m\'aximo y el m\'inimo ser\'ian $t_{max} = \frac{T_{on}}{2} - r_C \cdot C$ y $t_{min} = \frac{T_{off}}{2} - r_C \cdot C$, los resultados terminan separ\'andose seg\'un si estos tiempos son o no mayores a 0, puesto que de lo contrario hay que evaluar en $t=0$. 
+
+Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
+\begin{equation}
+	\Delta V_O =
+	\begin{cases} 
+		
+		\Delta I_L \cdot \left(
+			\frac{1}{8Cf_s} + \frac{r_C^2 C f_s}{2D(1-D)}
+		\right) 
+		& \text{si }  \uptau < T_{on}/2 \wedge \uptau < T_{off}/2 \\
+		
+		\Delta I_L \cdot \left(
+		\frac{r_C}{2} + \frac{r_C^2 C}{T_{on}} + \frac{1}{2CT_{on}} 
+		\cdot \left(
+			\left( \frac{T_{on}}{2} \right)^2 - (r_c C)^2
+		\right)
+		\right) 
+		& \text{si }  \uptau < T_{on}/2 \wedge \uptau > T_{off}/2\\
+		
+		\Delta I_L \cdot \left(
+		\frac{r_C}{2} + \frac{r_C^2 C}{T_{off}} + \frac{1}{2CT_{off}} 
+		\cdot \left(
+		\left( \frac{T_{off}}{2} \right)^2 - (r_c C)^2
+		\right)
+		\right) 
+		& \text{si }  
+		\uptau < T_{on}/2 \wedge \uptau > T_{off}/2\\
+		
+		\Delta I_L \cdot r_C & \text{si } \uptau > T_{on}/2 \wedge \uptau > T_{off}/2
+		
+	\end{cases}
+	\label{eq:ripple-real}
+\end{equation}
+
+Para el capacitor sugerido por la c\'atedra, la ESR que figura en la datasheet\footnote{ 
+	\url{https://ar.mouser.com/datasheet/2/129/rtk_e-6792.pdf}
+} es de 32$\Omega$. Con estos valores, $\tau = 320\upmu$s, con lo cual considerando que $T_{on} \simeq T_{off} \simeq 10\upmu$s (recordemos que $D = 0.49$), estar\'iamos en el \'ultimo caso de \ref{eq:ripple-real}, y se obtendr\'ia finalmente $\Delta V_O = 7.04V$: m\'as del doble de $V_O$. Es claro que esto no es aceptable, y es necesario cambiar el capacitor por uno con menor ESR.
+
+Se propone utilizar un capacitor de la serie ESL de KEMET Electronic Components\footnote{
+	\url{https://content.kemet.com/datasheets/KEM_A4074_ESL.pdf}
+}, en particular el de 22$\upmu$F, 50V, que tiene 0.23$\Omega$ de ESR. Se obtiene entonces $\uptau = 8.97 \upmu$s, con lo cual se est\'a en el \'ultimo caso de la ecuaci\'on \ref{eq:ripple-real}, y entonces:
+
+\begin{equation}
+	\frac{\Delta V_O}{V_O} = \frac{\Delta I_L \cdot r_C}{V_O} = 1.36 \%
+	\label{eq:result-ripple-esr}
+\end{equation}
+
+Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es m\'as del doble de grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
 
 \end{document}
 

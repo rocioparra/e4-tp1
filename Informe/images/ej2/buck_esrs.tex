@@ -1,0 +1,36 @@
+\documentclass{standalone}
+
+\usepackage[american]{circuitikz}
+
+
+\begin{document}
+
+\begin{circuitikz}
+	\draw (0,-1) 
+	to[vsource, l=$V_I$, invert](0,3)
+	to[short, -*] (2,3)% to[short, -*, i=$I_0$] (2,3)
+	to[full diode, v=$V_D$, invert] (2,-1) 
+	to[normal open switch, l=s, mirror](0,-1);
+	
+	\draw (2,3)  
+	to[L, l=$L$, v=$V_L$] (5,3)
+	to[R, l=$r_L$, v=$V_{rL}$, i=$i_L$] (7,3)
+	to[C=$C$, i_=$i_c$](7,1)
+	to[R, l=$r_C$](7,-1)
+	to[short, -*] (2,-1);
+	
+	\draw (7, 3) 
+	to[short, *-*] (9, 3)
+	to [R, l=$R$, i>^=$I_O$] (9,-1) 
+	to [short, *-*] (7,-1);
+	
+	\draw (9, 3) 
+	-- (10, 3)
+	to [open, v^=$V_0$, o-o] (10, -1)
+	to [short, o-*] (9,-1);
+	
+\end{circuitikz}
+
+
+	
+\end{document}
