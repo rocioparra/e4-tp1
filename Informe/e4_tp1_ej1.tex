@@ -60,12 +60,12 @@ El apagado del MOSFET es similar al encendido, pero en orden contrario:
 Primero, se comienzan a descargar las capacidades internas por el Gate, por lo que la tensión del Gate en la primera etapa está dada por:
 
 \begin{equation}
-V_G(t) = V_{GG} \exp(-t/\tau_2)
+V_G(t) = V_{1} \exp(-t/\tau_2)
 \end{equation}
 
 Esto ocurrirá hasta que la tensión $V_G$ alcance el valor $V_{G,I_D=I_0}$ en $t=t_2$. Puede demostrarse que:
 \begin{equation}
-t_2= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_{GG}}\right)
+t_2= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_1}\right)
 \end{equation}
 
 Luego, la tensión en el Gate permanecerá constante mientras se descarga $C_{GD,2}$ a corriente constante durante un tiempo $t_{rv}$. Analogo al caso de encendido, este tiempo está dado por
@@ -161,5 +161,10 @@ Valor & 24,8124 nseg A & 9,2410 nseg & 63,7755 nseg & 120,1923 nseg & 20,9891 ns
 \hline
 \end{tabular}
 
-Finalmente, se obtienen las siguientes curvas:
+Finalmente, se obtienen las siguientes curvas:\\
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/ej1/CurvasTeoricas.jpg}
+  \caption{Curvas teóricas}
+  \label{fig:Curva-Teorica}
+\end{figure}
 \end{document}
