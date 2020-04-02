@@ -104,6 +104,7 @@ Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimo
 = \frac{1}{V_O} 
 \cdot \frac{1}{C} \cdot \frac{1}{2} \cdot \frac{\Delta I_L}{2} \frac{T_s}{2}
 \simeq 1.53 \%
+\label{eq:result-ripple-diodo}
 \end{equation}
 
 
@@ -147,7 +148,7 @@ Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
 		\Delta I_L \cdot \left(
 			\frac{1}{8Cf_s} + \frac{r_C^2 C f_s}{2D(1-D)}
 		\right) 
-		& \text{si }  \uptau < T_{on} \wedge \uptau < T_{off} \\
+		& \text{si }  \uptau < T_{on}/2 \wedge \uptau < T_{off}/2 \\
 		
 		\Delta I_L \cdot \left(
 		\frac{r_C}{2} + \frac{r_C^2 C}{T_{on}} + \frac{1}{2CT_{on}} 
@@ -155,7 +156,7 @@ Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
 			\left( \frac{T_{on}}{2} \right)^2 - (r_c C)^2
 		\right)
 		\right) 
-		& \text{si }  \uptau < T_{on} \wedge \uptau > T_{off}\\
+		& \text{si }  \uptau < T_{on}/2 \wedge \uptau > T_{off}/2\\
 		
 		\Delta I_L \cdot \left(
 		\frac{r_C}{2} + \frac{r_C^2 C}{T_{off}} + \frac{1}{2CT_{off}} 
@@ -164,12 +165,28 @@ Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
 		\right)
 		\right) 
 		& \text{si }  
-		\uptau < T_{on} \wedge \uptau > T_{off}\\
+		\uptau < T_{on}/2 \wedge \uptau > T_{off}/2\\
 		
-		\Delta I_L \cdot r_C & \text{si } \uptau > T_{on} \wedge \uptau > T_{off}
+		\Delta I_L \cdot r_C & \text{si } \uptau > T_{on}/2 \wedge \uptau > T_{off}/2
 		
 	\end{cases}
+	\label{eq:ripple-real}
 \end{equation}
+
+Para el capacitor sugerido por la c\'atedra, la ESR que figura en la datasheet\footnote{ 
+	\url{https://ar.mouser.com/datasheet/2/129/rtk_e-6792.pdf}
+} es de 32$\Omega$. Con estos valores, $\tau = 320\upmu$s, con lo cual considerando que $T_{on} \simeq T_{off} \simeq 10\upmu$s (recordemos que $D = 0.49$), estar\'iamos en el \'ultimo caso de \ref{eq:ripple-real}, y se obtendr\'ia finalmente $\Delta V_O = 7.04V$: m\'as del doble de $V_O$. Es claro que esto no es aceptable, y es necesario cambiar el capacitor por uno con menor ESR.
+
+Se propone utilizar un capacitor de la serie ESL de KEMET Electronic Components\footnote{
+	\url{https://content.kemet.com/datasheets/KEM_A4074_ESL.pdf}
+}, en particular el de 22$\upmu$F, 50V, que tiene 0.23$\Omega$ de ESR. Se obtiene entonces $\uptau = 8.97 \upmu$s, con lo cual se est\'a en el \'ultimo caso de la ecuaci\'on \ref{eq:ripple-real}, y entonces:
+
+\begin{equation}
+	\frac{\Delta V_O}{V_O} = \frac{\Delta I_L \cdot r_C}{V_O} = 1.36 \%
+	\label{eq:result-ripple-esr}
+\end{equation}
+
+Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es m\'as del doble de grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
 
 \end{document}
 
