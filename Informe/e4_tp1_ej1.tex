@@ -93,5 +93,28 @@ El tiempo característico de este circuito está dado por
 \begin{equation}
 \tau_{RL} = L_1/R_2.
 \end{equation}
+
 \subsection{Diodo}
+
+\subsection{Valores de los componentes y variables}
+\begin{table}[H]
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ & $M_1$ & $L_1$ & $D_1$ & $V_2$ & $V_1$\\
+\hline
+Valor & BC337-25 & BC557B & 100 $\Omega$ & 15 $\Omega$ & 1 $K\Omega$ & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Vp=15 V\\
+\hline
+\end{tabular}
+\caption{Componentes}
+\end{table}
+Reemplazando los valores de estos, obtenemos lo siguiente:\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+Variable & $I_O$ & $V_{ds,max}$ & $V_{G,th}$ & $V_{G,I_D=I_0}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
+\hline
+Valor & $\frac{10}{3}$ A & 50 V & 4 V & 5,2 V & 800 pF & 650 pF & 6,25 nC\\
+\hline
+\end{tabular}
+
+Finalmente, se obtienen las siguientes curvas:
 \end{document}
