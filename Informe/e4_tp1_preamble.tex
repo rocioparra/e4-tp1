@@ -12,6 +12,8 @@
 %% PAQUETES EXTRA %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage[a4paper, total={6in, 8in}, footskip=50px]{geometry} 
+
 \usepackage{subfiles}
 
 \usepackage{amsmath} % PAQUETES DE MATEMATICA
@@ -19,6 +21,9 @@
 \usepackage{amssymb}
 
 
+\usepackage{booktabs} % tablas lindas
+
+\usepackage{upgreek} % letras griegas no italic
 \usepackage{steinmetz} % comando \phase{}
 \usepackage{units} % permite usar nicefrac
 \usepackage{graphicx} % importar imagenes
@@ -26,12 +31,21 @@
 \usepackage[colorinlistoftodos]{todonotes}
 
 
-\usepackage[a4paper, total={6in, 8in}]{geometry} 
+
 % margenes correctos en subarchivos
 
 \setlength{\parindent}{10pt}			%cuanta sangria al principio de un parrafo
 \usepackage{indentfirst}				%pone sangria al primer parrafo de una seccion
 
+
+% Header style
+\usepackage{fancyhdr}
+\setlength{\headheight}{15.2pt}
+\pagestyle{fancy}
+\lhead{22.14 Electr\'onica 4}
+\chead{TP1: Convertidores DC/DC}
+\rhead{Grupo 2}
+\cfoot{\thepage}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
