@@ -135,16 +135,36 @@ Por causa de la corriente $I_rr$, la corriente de drain $I_D$ crece hasta el val
 
 \subsection{Valores de los componentes y variables}
 \begin{table}[H]
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
-Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ & $M_1$ & $L_1$ & $D_1$ & $V_2$ & $V_1$\\
+Componente & Valor \\
 \hline
-Valor & BC337-25 & BC557B & 100 $\Omega$ & 15 $\Omega$ & 1 $K\Omega$ & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Vp=15 V\\
+$Q_1$ & BC337-25\\ 
 \hline
+$Q_2$ & BC557B\\
+\hline
+$R_1$ & 100 $\Omega$\\
+\hline 
+$R_2$ & 15 $\Omega$ \\
+\hline 
+$R_3$ & 1 $K\Omega$\\
+\hline 
+$M_1$ & IRF530\\
+\hline 
+$L_1$ & 220 $\mu H$\\
+\hline 
+$D_1$ & MUR460\\
+\hline 
+$V_2$ & 50 V \\
+\hline 
+$V_1$ & Vp=15 V\\
+\hline    
 \end{tabular}
 \caption{Componentes}
 \end{table}
 Reemplazando los valores de estos, obtenemos lo siguiente:\\
+\centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $I_O$ & $V_{ds,max}$ & $V_{G,th}$ & $V_{G,I_D=I_0}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
@@ -153,6 +173,7 @@ Valor & $\frac{10}{3}$ A & 50 V & 4 V & 5,2 V & 800 pF & 650 pF & 6,25 nC\\
 \hline
 \end{tabular}\\
 Y los tiempos de conmutación son:\\
+\centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{rv}$ & $t_{fi}$  \\
