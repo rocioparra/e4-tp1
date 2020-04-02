@@ -109,7 +109,7 @@ Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimo
 
 \subsubsection{Considerando las ESR de la bobina y el capacitor}
 
-Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se observa en la figura \ref{fig:buck-esrs}. Para seguir cumpliendo con $\langle V_L \rangle = 0$, por lo tanto ahora 
+Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se observa en la figura \ref{fig:buck-esrs}.
 
 \begin{figure}[ht]
 	\centering
@@ -117,6 +117,59 @@ Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se ob
 	\caption{Fuente buck, considerando las ESR de la bobina y del capacitor}
 	\label{fig:buck-esrs}
 \end{figure}
+
+
+Para seguir cumpliendo con $\langle V_L \rangle = 0$, debe cumplirse ahora que $\langle V_D \rangle = \langle V_O \rangle + \langle V_{rL} \rangle$. Como la corriente media de la bobina es la de salida, la tensi\'on media de su ESR no ser\'a otra cosa que $\frac{r_L}{R} \cdot V_O$. 
+
+La datasheet de la bobina sugerida por la 
+c\'atedra\footnote{
+	\url{https://abracon.com/Magnetics/radial/AIUR-03.pdf}
+} lista a esta ESR con el valor de 0.65$\Omega$.
+Despejando para $D$, obtenemos pues:
+\begin{equation}
+	D = \frac{V_O \cdot \left( 1+ \frac{r_L}{R}\right)+ V_{DF}}{V_I + V_{DF}} 
+= \frac{3.7V \cdot \left( 1+ \frac{0.65\Omega}{10\Omega}\right) + 0.8V}{9V + 0.8V} 
+\simeq 0.48 
+\end{equation}
+
+
+En cuanto al ripple, el mismo se ve afectado por la ESR del capacitor, ya que ahora $V_O = V_C + V_{rC}$, con lo cual los efectos de ambos componentes deben tenerse en cuenta. El \textit{application report} ``Output Ripple Voltage for Buck Switching Regulator'' de Texas Instruments\footnote{ 
+	\url{http://www.ti.com/lit/an/slva630a/slva630a.pdf}
+} realiza el an\'alisis correspondiente, que si bien no es de gran complejidad, s\'i implica un desarrollo demasiado extenso para incluir en este informe paso por paso. El mismo consiste en obtener la $v_o(t) = v_c(t) + v_{rC}(t)$, para los tramos $t<T_{on}$ y el $t>T_{on}$, derivar para buscar el m\'aximo y el m\'inimo de esa funci\'on por tramos, evaluar en esos puntos y obtener la diferencia.
+
+Como los tiempos donde se encontrar\'ian el m\'aximo y el m\'inimo ser\'ian $t_{max} = \frac{T_{on}}{2} - r_C \cdot C$ y $t_{min} = \frac{T_{off}}{2} - r_C \cdot C$, los resultados terminan separ\'andose seg\'un si estos tiempos son o no mayores a 0, puesto que de lo contrario hay que evaluar en $t=0$. 
+
+Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
+\begin{equation}
+	\Delta V_O =
+	\begin{cases} 
+		
+		\Delta I_L \cdot \left(
+			\frac{1}{8Cf_s} + \frac{r_C^2 C f_s}{2D(1-D)}
+		\right) 
+		& \text{si }  \uptau < T_{on} \wedge \uptau < T_{off} \\
+		
+		\Delta I_L \cdot \left(
+		\frac{r_C}{2} + \frac{r_C^2 C}{T_{on}} + \frac{1}{2CT_{on}} 
+		\cdot \left(
+			\left( \frac{T_{on}}{2} \right)^2 - (r_c C)^2
+		\right)
+		\right) 
+		& \text{si }  \uptau < T_{on} \wedge \uptau > T_{off}\\
+		
+		\Delta I_L \cdot \left(
+		\frac{r_C}{2} + \frac{r_C^2 C}{T_{off}} + \frac{1}{2CT_{off}} 
+		\cdot \left(
+		\left( \frac{T_{off}}{2} \right)^2 - (r_c C)^2
+		\right)
+		\right) 
+		& \text{si }  
+		\uptau < T_{on} \wedge \uptau > T_{off}\\
+		
+		\Delta I_L \cdot r_C & \text{si } \uptau > T_{on} \wedge \uptau > T_{off}
+		
+	\end{cases}
+\end{equation}
 
 \end{document}
 
