@@ -44,7 +44,7 @@ t_{ri} = t_{1} - t_{d,on}.
 Luego, cuando la corriente de drain llega al valor $I_0$, el valor de la tensión en el gate se mantiene temporalmente en $V_G=V_{G,I_D=I_0}$, por lo que la capacidad $C_{GS}$ deja de cargarse, mientras se sigue cargando $C_{GD}$ a corriente constante. A medida se cargue $C_{GD}$ se formará la capa de acumulación, bajando la resistencia $R_{DS}$, por lo que disminuye la tensión $V_{DS}$ hasta alcanzar el valor $V_{DS,on}$. Dado que la capacidad $C_{GD}$ varía durante este proceso, pues varían la longitud de la capa de acumulación, suele utilizarse el valor de la carga total $\Delta Q$ para estimar la duración de esta etapa. Con esto, el tiempo que transcurre desde que empieza a caer la tensión $V_{DS}$ hasta que alcanza el valor$V_{DS,on}$ puede estimarse según:
 
 \begin{equation}
-t_{fv} = \Delta Q/I_{G,on} = \frac{\Delta Q R_1}{V_{GG}-V_{G,I_D=I_0}}
+t_{fv} = \Delta Q/I_{G,on} = \frac{\Delta Q R_1}{V_{1}-V_{G,I_D=I_0}}
 \end{equation}
 
 A lo largo de esta etapa, cambia el valor de $C_{GD,1}$ a $C_{GD,2}$. Luego, la tensión en el Gate sigue creciendo hasta llegar al valor $V_{GG}$. El tiempo característico asociado está dado por:
@@ -113,6 +113,14 @@ Reemplazando los valores de estos, obtenemos lo siguiente:\\
 Variable & $I_O$ & $V_{ds,max}$ & $V_{G,th}$ & $V_{G,I_D=I_0}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
 \hline
 Valor & $\frac{10}{3}$ A & 50 V & 4 V & 5,2 V & 800 pF & 650 pF & 6,25 nC\\
+\hline
+\end{tabular}\\○
+Y los tiempos de conmutación son:\\
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{rv}$ & $t_{fi}$  \\
+\hline
+Valor & 24,8124 nseg A & 9,2410 nseg & 63,7755 nseg & 120,1923 nseg & 20,9891 nseg\\
 \hline
 \end{tabular}
 
