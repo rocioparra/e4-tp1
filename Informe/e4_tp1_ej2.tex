@@ -209,15 +209,13 @@ La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este traba
 
 Se realizaron las simulaciones correspondientes a este circuito en LTSpice, utilizando el modelo ``real'' del diodo, y con las ESR obtenidas de las datasheets de los componentes correspondientes. Los resultados obtenidos, as\'i como las curvas te\'oricas realizadas a partir del desarrollo de la secci\'on anterior, se encuentran en la figura \ref{fig:buck-curvas}.
 
-En la curva de $v_L(t)$, se observa una diferencia de casi 0.3V entre los valores te\'oricos y simulados, lo cual representa un 6\% de error respecto de los $\sim5$V tanto de $v_Lmax$ como $v_Lmin$ te\'oricos. Esto puede atribu\'irsele a una suma de factores: para empezar, Spice utiliza $V_{DF} \simeq 0.77V$, es decir, una tensi\'on un 4\% menor. Esto afecta a la tensi\'on de salida, que en la simulaci\'on es de 3.67V. Utilizando estos valores nuevamente en la f\'ormula te\'orica, se obtiene un valor m\'as cercano al simulado - si bien no el mismo. Tambi\'en es razonable suponer que Spice est\'a considerando m\'as par\'ametros internos del diodo que nosotros no tuvimos en cuenta (el resto de los componentes son ideales, con lo cual no tendr\'ian por qu\'e introducir error). 
-
-En el gr\'afico de $i_L(t)$ no se observan diferencias significativas entre ambas curvas. Sabemos, sin embargo, que existe una diferencia entre las pendientes de las rectas, considerando que las curvas de tensi\'on son visiblemente distintas.
+En los gr\'afico de $v_L(t)$ e $i_L(t)$ no se observan diferencias significativas entre ambas curvas. Una fuente de error en estas curvas es que Spice utiliza $V_{DF} \simeq 0.77V$, es decir, una tensi\'on un 4\% menor a la que tomamos en el an\'alisis te\'orico. Esto afecta a la tensi\'on de salida, que en la simulaci\'on es de 3.67V. Ambos valores influyen en la cuenta de $v_L$ y, por lo tanto, de $i_L$.
 
 \begin{landscape}
 	\vspace*{\fill}
 	\begin{figure}[ht]
 		\centering
-		\includegraphics[scale=0.70]{images/ej2/curvas.png}
+		\includegraphics[scale=0.75]{images/ej2/curvas.png}
 		\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
 		\label{fig:buck-curvas}
 	\end{figure}
