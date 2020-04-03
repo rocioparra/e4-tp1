@@ -194,6 +194,21 @@ Se propone utilizar un capacitor de la serie ESL de KEMET Electronic Components\
 Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es casi cuatro veces m\'as grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
 
 
+\subsubsection{Considerando la corriente de recovery del diodo}
+
+Un comportamiento no ideal del diodo que no se mencion\'o hasta ahora es su corriente de recovery, a la cual se hizo referencia ya en el ejercicio anterior. Lo que sucede es que como la misma depende de la derivada de la corriente en el diodo cuando se lo apaga, y como la fuente y el switch son ideales, esta derivada es infinita. Esto resulta en que los picos de corriente inversa sean, idealmente, infinitos.
+
+Desde luego, esto no es razonable: sabemos que ninguna fuente ni ninguna llave (y para el caso, ning\'un diodo) tiene la capacidad de entregar corriente infinita. Sin embargo, para plasmar este fen\'omeno  en nuestro an\'alisis de alguna manera, recurriremos nuevamente a la hoja de datos. Encontramos que cuando $\frac{di_R}{dt} = 50\nicefrac{\text{A}}{\upmu \text{s}}$, con una corriente de forward de 1A (que no es nuestro caso, pero nuevamente, esto es a modo ilustrativo), el tiempo de recovery es como m\'aximo $t_{rr}=75$ns, y la corriente $I_{rr} = 1.7$A. Utilizaremos pues estos datos para construir el pico de corriente inversa que se observar\'ia en la realidad, aunque no tenemos forma de saber si el valor dado de $\frac{di_R}{dt}$ es representativo.
+
+La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este trabajo. Su forma te\'orica se encuentra en la figura 8\todo{referencia cabeza}, pero aqu\'i simplemente la graficaremos como si fuese triangular. 
+
+
+
+\subsection{Simulaci\'on}
+
+Se realizaron las simulaciones correspondientes a este circuito en LTSpice, utilizando el modelo ``real'' del diodo, y con las ESR obtenidas de las datasheets de los componentes correspondientes. Los resultados obtenidos, as\'i como las curvas te\'oricas realizadas a partir del desarrollo de la secci\'on anterior, se encuentran en la figura \ref{fig:buck-curvas}.
+
+
 \begin{landscape}
 	\vspace*{\fill}
 	\begin{figure}[ht]
@@ -201,6 +216,7 @@ Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \re
 		\includegraphics[scale=0.70]{images/ej2/curvas.png}
 		\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
 	\end{figure}
+	\label{fig:buck-curvas}
 	\vspace*{\fill}
 \end{landscape}
 
