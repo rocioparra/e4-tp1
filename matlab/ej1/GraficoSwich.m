@@ -33,7 +33,7 @@ for i = 1:(length(t_1)+length(t_2)+length(t_3)+length(t_4)+length(t_5)+length(t_
         Vds(i)=Vdsmax;
     elseif t(i)<t1
         Vgs(i)=Vgg*(1-exp(-t_2(1+i-length(t_1))/T1));
-        id(i)=(Io/t1)*t_2(1+i-length(t_1));
+        id(i)=(Io/(t1-td))*(t_2(1+i-length(t_1))-td);
         Vds(i)=Vdsmax;
     elseif t(i)<t1+tfv
         Vgs(i)=Vio1;
@@ -53,7 +53,7 @@ for i = 1:(length(t_1)+length(t_2)+length(t_3)+length(t_4)+length(t_5)+length(t_
         Vgs(i)=Vio2;
     elseif t(i)<(185.7216e-9+t2+trv+tfi)
         Vds(i)=Vdsmax;
-        id(i)=Io*(1-(t_7(1+i-(length(t_1)+length(t_2)+length(t_3)+length(t_4)+length(t_5)+length(t_6)))/tfi));
+        id(i)=Io*(1-((t_7(1+i-(length(t_1)+length(t_2)+length(t_3)+length(t_4)+length(t_5)+length(t_6)))-(185.7216e-9+t2+trv))/tfi));
         Vgs(i)=Vgg*exp(-t_7(1+i-(length(t_1)+length(t_2)+length(t_3)+length(t_4)+length(t_5)+length(t_6)))/T1);
     elseif t(i)<(185.7216e-9+t2+trv+tfi+194.7225e-9)
         id(i)=0;
