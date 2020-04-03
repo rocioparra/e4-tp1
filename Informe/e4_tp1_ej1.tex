@@ -18,6 +18,25 @@ Los transistores $Q_1$ y $Q_2$ forman una configuración Totem-Pole, y se encuen
 Nótese que para prender el transistor, se requiere cargar las capacidades internas del MOSFET, por lo que se requiere un pico de corriente que un generador de señales no es capaz de proveer. Utilizando esta configuración, se puede activar y desactivar este circuito utilizando un generador de señales, mientras que la corriente es provista por la fuente de tensión.
 Idealmente, la salida de este circuito valdrá $V_{out} = V_1 - 0.7V$ cuando el circuito esté activado, y $V_{out} = 0.7V$ cuando se encuentre desactivado. Este circuito afectará la curva de control del Gate, pues la misma no es un escalón ideal. Se tendrá en cuenta el delay para la interpretación de los resultados obtenidos, pero no nos centraremos en el análisis de los delays de esta configuración.
 
+
+
+\subsection{Carga Inductiva}
+La carga está compuesta por un circuito RL. Para conocer las condiciones de operación de este circuito, hay que plantear las ecuaciones en funcionamiento. Estas ecuaciones son
+\begin{equation}
+I_1 = I_0\exp(-t_1/\tau_{RL})+\frac{V_2}{R_2}(1-\exp(-t_1/\tau_{RL}))
+\end{equation}
+\begin{equation}
+I_0 = I_1\exp(-t_2/\tau_{RL}),
+\end{equation}
+donde $t_1 = D/f_s$, $t_2 = (1-D)/f_s$, $\tau_{RL}=L/R$, $f_s$ la frecuencia del switch y $D$ el duty cycle. Resolviendo el sistema de ecuaciones queda
+\begin{equation}
+I_0 = \frac{V_2}{R_2}\frac{1-exp(-t_1/\tau_{RL})}{exp(t_2/\tau_{RL})-exp(-t_1/\tau_{RL})}
+\end{equation}
+\begin{equation}
+I_1 = \frac{V_2}{R_2}\frac{1-exp(-t_1/\tau_{RL})}{exp(t_2/\tau_{RL})-exp(-t_1/\tau_{RL})}\exp(t_2/\tau_{RL}).
+\end{equation}
+Notese que $I_0$ corresponde a la corriente en el inductor cuando se prende el MOSFET, y $I_1$ corresponde a la corriente en el inductor cuando se apaga el MOSFET.
+
 \subsection{Conmutación MOSFET}
 
 Durante la conmutación del MOSFET, circula corriente por el Gate. Esta corriente es debido a capacidades internas del transistor, que se cargan durante la conmutación. Dichas capacidades corresponden básicamente a las cargas de la capa de inversión e ionización que se forman en el body del transistor para formar el canal N (Capacidad Gate-Source $C_{GS}$ - recordar que el Gate y el Source se encuentran cortocircuitados internamente), y las cargas asociadas a la capa de acumulación o de deplexión que se forma en el Drain del transistor (Capacidad Gate-Drain $C_{GS}$), que ayudan a minimizar la resistencia del MOSFET cuando se encuentra activado. Cabe destacar que estas capacidades dependen del tamaño de la capa de acumulación / deplexión, y por lo tanto cambian durante la conmutación del MOSFET. Se buscará introducir las ecuaciones a utilizar, sin entrar en detalle sobre el funcionamiento del transistor.
@@ -93,17 +112,6 @@ Un gráfico esquemático mostrando la conmutación del MOSFET se muestra en la \
   \label{fig:mosfet_theory}
 \end{figure}
 
-
-\subsection{Carga Inductiva}
-La carga está compuesta por un circuito RL. Los valores importantes a tener en cuenta para el análisis del circuito son la corriente nominal y su tiempo característico. La corriente nominal se obtiene considerando que el MOSFET se comporta como una llave cerrada. El valor de la corriente está dado por
-\begin{equation}
-I_0 = V_2/R_2.
-\end{equation}
-El tiempo característico de este circuito está dado por
-\begin{equation}
-\tau_{RL} = L_1/R_2.
-\end{equation}
-
 \subsection{Diodo}
 También resulta importante analizar la dinámica del Diodo durante la conmutación, dado que afecta a las curvas de conmutación del MOSFET, que es lo que se busca analizar en este punto. Con este objetivo, se realizará un breve análisis de la conmutación de un diodo real. El análisis se realiza considerndo un switch que impone un cambio de corriente $di/dt$. Recordar que un diodo de potencia está formado por dos junturas: $p^+n^-n^+$.
 
@@ -122,28 +130,54 @@ El apagado del diodo es escencialmente el proceso inverso al encendido. Primero 
 
 \subsubsection{Efecto de $I_{rr}$ en la conmutación del MOSFET}
 
-El valor de $I_rr$ afecta en la conmutación del MOSFET. Nótese que este efecto se da cuando el diodo se apaga, es decir, durante el encendido del MOSFET.
+El valor de $I_{rr}$ afecta en la conmutación del MOSFET. Nótese que este efecto se da cuando el diodo se apaga, es decir, durante el encendido del MOSFET.
 
-Por causa de la corriente $I_rr$, la corriente de drain $I_D$ crece hasta el valor $I_0+I_rr$, por lo que el valor de $V_{G}$ crece por arriba de $V_{G,I_D=I_0}$. Cuando el diodo se recupera y la corriente vuelve a cero (y, por lo tanto, la corriente $I_D$ baja a $I_0$), el valor de $V_G$ baja a $V_{G,I_D=I_0}$, y el cambio de tensión provee corriente adicional a la capacidad $C_{GD}$, produciendo que $V_{GD}$ y $V{DS}$ decrezcan rapidamente durante este intervalo de recovery. Los efectos de la corriente $I_{rr}$ en la conmutación del MOSFET pueden observarse en la \autoref{fig:mosfer_irr}
+Por causa de la corriente $I_{rr}$, la corriente de drain $I_D$ crece hasta el valor $I_0+I_rr$, por lo que el valor de $V_{G}$ crece por arriba de $V_{G,I_D=I_0}$. Cuando el diodo se recupera y la corriente vuelve a cero (y, por lo tanto, la corriente $I_D$ baja a $I_0$), el valor de $V_G$ baja a $V_{G,I_D=I_0}$, y el cambio de tensión provee corriente adicional a la capacidad $C_{GD}$, produciendo que $V_{GD}$ y $V_{DS}$ decrezcan rapidamente durante este intervalo de recovery. Los efectos de la corriente $I_{rr}$ en la conmutación del MOSFET pueden observarse en la \autoref{fig:mosfet_irr}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth/2]{images/ej1/diode_irr.png}
   \caption{Efectos de $I_{rr}$ en el encendido del MOSFET.}
-  \label{fig:diode}
+  \label{fig:mosfet_irr}
 \end{figure}
 
 \subsection{Valores de los componentes y variables}
 \begin{table}[H]
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ & $M_1$ & $L_1$ & $D_1$ & $V_2$ & $V_1$\\
+Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ \\
 \hline
-Valor & BC337-25 & BC557B & 100 $\Omega$ & 15 $\Omega$ & 1 $K\Omega$ & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Vp=15 V\\
+Valor & BC337-25 & BC557B & 100 $\Omega$ & 15 $\Omega$ & 1 $K\Omega$ \\
+\hline
+Componente & $M_1$ & $L_1$ & $D_1$ & $V_2$ & $V_1$\\
+\hline
+Valor & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Ver Tabla $V_1$\\
 \hline
 \end{tabular}
-\caption{Componentes}
+\caption{Valores de los componentes utilizados.}
 \end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+Parámetro & Valor \\
+\hline
+$V_0$ (on) & $15$ V \\
+\hline
+$V_0$ (off) & $0$ V \\
+\hline
+$f_s$ & $50$ KHz \\
+\hline
+$D$ (Duty Cycle) & $50\%$ \\
+\hline
+\end{tabular}
+\caption{Valores asociados a generador de $V_1$.}
+\end{table}
+
+\subsection{Búsqueda de parámetros en datasheet y cálculo de valores}
+
 Reemplazando los valores de estos, obtenemos lo siguiente:\\
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
