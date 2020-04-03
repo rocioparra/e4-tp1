@@ -179,19 +179,24 @@ $D$ (Duty Cycle) & $50\%$ \\
 \subsection{Búsqueda de parámetros en datasheet y cálculo de valores}
 
 Reemplazando los valores de estos, obtenemos lo siguiente:\\
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
-Variable & $I_O$ & $V_{ds,max}$ & $V_{G,th}$ & $V_{G,I_D=I_0}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
+Variable & $I_{0_{off}}$ & $I_{0_{on}}$ & $V_{G,th}$ & $V_{G,I_D=I_{0_{off}}}$   & $V_{G,I_D=I_{0_{on}}}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
 \hline
-Valor & $\frac{10}{3}$ A & 50 V & 4 V & 5,2 V & 800 pF & 650 pF & 6,25 nC\\
+Valor & 2,2138 A & 1,1195 A & 4 V & 4,8 V & 4,5 V & 650 pF & 1120 pF & 7 nC\\
 \hline
-\end{tabular}\\
+\end{tabular}
+\caption{Valores obtenidos del datasheet}
+\end{table}
+
 Y los tiempos de conmutación son:\\
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{rv}$ & $t_{fi}$  \\
 \hline
-Valor & 24,8124 nseg A & 9,2410 nseg & 63,7755 nseg & 120,1923 nseg & 20,9891 nseg\\
+Valor & 20,1600 nseg A & 3,0238 nseg & 66,6667 nseg & 145,8333 nseg & 3,0238 nseg\\
 \hline
 \end{tabular}
 
