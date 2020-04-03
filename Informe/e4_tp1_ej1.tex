@@ -79,12 +79,12 @@ El apagado del MOSFET es similar al encendido, pero en orden contrario:
 Primero, se comienzan a descargar las capacidades internas por el Gate, por lo que la tensión del Gate en la primera etapa está dada por:
 
 \begin{equation}
-V_G(t) = V_{GG} \exp(-t/\tau_2)
+V_G(t) = V_{1} \exp(-t/\tau_2)
 \end{equation}
 
 Esto ocurrirá hasta que la tensión $V_G$ alcance el valor $V_{G,I_D=I_0}$ en $t=t_2$. Puede demostrarse que:
 \begin{equation}
-t_2= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_{GG}}\right)
+t_2= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_1}\right)
 \end{equation}
 
 Luego, la tensión en el Gate permanecerá constante mientras se descarga $C_{GD,2}$ a corriente constante durante un tiempo $t_{rv}$. Analogo al caso de encendido, este tiempo está dado por
@@ -144,6 +144,7 @@ Por causa de la corriente $I_{rr}$, la corriente de drain $I_D$ crece hasta el v
 \subsection{Valores de los componentes y variables}
 \begin{table}[H]
 \centering
+<<<<<<< HEAD
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ \\
@@ -153,7 +154,32 @@ Valor & BC337-25 & BC557B & 100 $\Omega$ & 15 $\Omega$ & 1 $K\Omega$ \\
 Componente & $M_1$ & $L_1$ & $D_1$ & $V_2$ & $V_1$\\
 \hline
 Valor & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Ver Tabla $V_1$\\
+=======
+\begin{tabular}{|c|c|}
 \hline
+Componente & Valor \\
+\hline
+$Q_1$ & BC337-25\\ 
+>>>>>>> 6b78f0a5237293019a8103441cbb0bb41122022b
+\hline
+$Q_2$ & BC557B\\
+\hline
+$R_1$ & 100 $\Omega$\\
+\hline 
+$R_2$ & 15 $\Omega$ \\
+\hline 
+$R_3$ & 1 $K\Omega$\\
+\hline 
+$M_1$ & IRF530\\
+\hline 
+$L_1$ & 220 $\mu H$\\
+\hline 
+$D_1$ & MUR460\\
+\hline 
+$V_2$ & 50 V \\
+\hline 
+$V_1$ & Vp=15 V\\
+\hline    
 \end{tabular}
 \caption{Valores de los componentes utilizados.}
 \end{table}
@@ -179,6 +205,7 @@ $D$ (Duty Cycle) & $50\%$ \\
 \subsection{Búsqueda de parámetros en datasheet y cálculo de valores}
 
 Reemplazando los valores de estos, obtenemos lo siguiente:\\
+\centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $I_O$ & $V_{ds,max}$ & $V_{G,th}$ & $V_{G,I_D=I_0}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
@@ -187,6 +214,7 @@ Valor & $\frac{10}{3}$ A & 50 V & 4 V & 5,2 V & 800 pF & 650 pF & 6,25 nC\\
 \hline
 \end{tabular}\\
 Y los tiempos de conmutación son:\\
+\centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{rv}$ & $t_{fi}$  \\
@@ -195,5 +223,15 @@ Valor & 24,8124 nseg A & 9,2410 nseg & 63,7755 nseg & 120,1923 nseg & 20,9891 ns
 \hline
 \end{tabular}
 
+<<<<<<< HEAD
 Finalmente, se obtienen las siguientes curvas:
 \end{document}
+=======
+Finalmente, se obtienen las siguientes curvas:\\
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{images/ej1/CurvasTeoricas.jpg}
+  \caption{Curvas teóricas}
+  \label{fig:Curva-Teorica}
+\end{figure}
+\end{document}
+>>>>>>> 6b78f0a5237293019a8103441cbb0bb41122022b
