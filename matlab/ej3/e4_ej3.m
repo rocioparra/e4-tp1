@@ -89,7 +89,7 @@ plot(t_3, disparo_3);
 ylim([-1.5, 11.5]);
 xlim([0, Tf]);
 xticklabels({});
-formataxes('', '', '$v_s(t)$ V', 'Llave ideal', 'Llave real');
+formataxes('', '', '$v_s(t)$ (V)', 'Llave ideal', 'Llave real');
 
 ax2 = subplot(4,1,2);
 plot(t_2, vl_2);
