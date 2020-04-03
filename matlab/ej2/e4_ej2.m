@@ -1,3 +1,6 @@
+clear;
+clear vars;
+
 fs = 50e3;
 Ts = 1/fs;
 
@@ -21,11 +24,12 @@ Toff = Ts-Ton;
 delta_iL = (Vdf+Vo*(1+rL/R))*Toff/L;
 
 didt = 50e+6;
+Irr = 1.7;
+trr = 75e-9;
+
 t3 = (Io-delta_iL/2)/didt;
-t4 = 34e-9;
-trr = 50e-9;
-t5 = trr -t4;
-Irr = didt *t4;
+t4 = Irr/didt;
+t5 = trr-t4;
 
 
 N = 50000;
@@ -77,6 +81,7 @@ plot(t, vL);
 hold on;
 plot(t_spice, vl_spice);
 xlim([0, Tf]);
+ylim([-7, 7]);
 xticklabels({});
 formataxes('', '', '$v_L(t)$ (V)', 'C\''alculo', 'Simulaci\''on');
 
@@ -96,5 +101,13 @@ plot(t_spice, id_spice);
 xlim([0, Tf]);
 ylim([-2, 0.8]);
 formataxes('', 'Tiempo (s)', '$i_D(t)$ (A)', 'C\''alculo', 'Simulaci\''on');
+
+% plot(t, id);
+% hold on;
+% plot(t_spice, id_spice);
+% xlim([0, Tf]);
+% ylim([-2, 0.8]);
+% formataxes('', 'Tiempo (s)', '$i_D(t)$ (A)', 'C\''alculo', 'Simulaci\''on');
+% 
 
 
