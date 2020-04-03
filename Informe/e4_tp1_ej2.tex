@@ -95,7 +95,7 @@ Despejando para $D$, obtenemos:
 Esto a su vez cambiar\'a el valor de los ripples de tensi\'on y corriente, puesto que no s\'olo a la tensi\'on de la bobina durante $T_{off}$ se le suma la tensi\'on forward del diodo, sino que adem\'as al aumentar $D$, disminuye $T_{off}$. Resulta entonces: 
 \begin{equation}
 	\Delta I_L = \frac{V_O + V_{DF}}{L} \cdot (1-D) \cdot T_s
-	\simeq 0.22\text{A}
+	\simeq 0.21\text{A}
 \end{equation} 
 
 Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimos operando en modo continuo con 10$\Omega$ de carga. En cuanto al ripple de tensi\'on:
@@ -134,7 +134,12 @@ Despejando para $D$, obtenemos pues:
 \end{equation}
 
 
-En cuanto al ripple, el mismo se ve afectado por la ESR del capacitor, ya que ahora $V_O = V_C + V_{rC}$, con lo cual los efectos de ambos componentes deben tenerse en cuenta. El \textit{application report} ``Output Ripple Voltage for Buck Switching Regulator'' de Texas Instruments\footnote{ 
+El ripple de corriente ahora es:
+\begin{equation}
+	\Delta I_L = \frac{V_{DF} + V_O(1+\nicefrac{r_L}{R})}{L} \cdot (1-D) \cdot T_s \simeq 0.22\text{A} 
+\end{equation}
+
+En cuanto al ripple de tensi\'on, el mismo se ve afectado por la ESR del capacitor, ya que ahora $V_O = V_C + V_{rC}$, con lo cual los efectos de ambos componentes deben tenerse en cuenta. El \textit{application report} ``Output Ripple Voltage for Buck Switching Regulator'' de Texas Instruments\footnote{ 
 	\url{http://www.ti.com/lit/an/slva630a/slva630a.pdf}
 } realiza el an\'alisis correspondiente, que si bien no es de gran complejidad, s\'i implica un desarrollo demasiado extenso para incluir en este informe paso por paso. El mismo consiste en obtener la $v_o(t) = v_c(t) + v_{rC}(t)$, para los tramos $t<T_{on}$ y el $t>T_{on}$, derivar para buscar el m\'aximo y el m\'inimo de esa funci\'on por tramos, evaluar en esos puntos y obtener la diferencia.
 
@@ -175,18 +180,29 @@ Llamando $\uptau = r_C \cdot C$, se obtiene entonces:
 
 Para el capacitor sugerido por la c\'atedra, la ESR que figura en la datasheet\footnote{ 
 	\url{https://ar.mouser.com/datasheet/2/129/rtk_e-6792.pdf}
-} es de 32$\Omega$. Con estos valores, $\tau = 320\upmu$s, con lo cual considerando que $T_{on} \simeq T_{off} \simeq 10\upmu$s (recordemos que $D = 0.49$), estar\'iamos en el \'ultimo caso de \ref{eq:ripple-real}, y se obtendr\'ia finalmente $\Delta V_O = 7.04V$: m\'as del doble de $V_O$. Es claro que esto no es aceptable, y es necesario cambiar el capacitor por uno con menor ESR.
+} es de 32$\Omega$. Con estos valores, $\tau = 320\upmu$s, con lo cual considerando que $T_{on} \simeq T_{off} \simeq 10\upmu$s (recordemos que $D = 0.46$), estar\'iamos en el \'ultimo caso de \ref{eq:ripple-real}, y se obtendr\'ia finalmente $\Delta V_O = 7.04V$: m\'as del doble de $V_O$. Es claro que esto no es aceptable, y es necesario cambiar el capacitor por uno con menor ESR.
 
 Se propone utilizar un capacitor de la serie ESL de KEMET Electronic Components\footnote{
 	\url{https://content.kemet.com/datasheets/KEM_A4074_ESL.pdf}
-}, en particular el de 22$\upmu$F, 50V, que tiene 0.23$\Omega$ de ESR. Se obtiene entonces $\uptau = 8.97 \upmu$s, con lo cual se est\'a en el \'ultimo caso de la ecuaci\'on \ref{eq:ripple-real}, y entonces:
+}, en particular el de 39$\upmu$F, 50V, que tiene 0.23$\Omega$ de ESR. Se obtiene entonces $\uptau = 8.97 \upmu$s, con lo cual se est\'a en el \'ultimo caso de la ecuaci\'on \ref{eq:ripple-real}, y entonces:
 
 \begin{equation}
 	\frac{\Delta V_O}{V_O} = \frac{\Delta I_L \cdot r_C}{V_O} = 1.36 \%
 	\label{eq:result-ripple-esr}
 \end{equation}
 
-Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es m\'as del doble de grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
+Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es casi cuatro veces m\'as grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
+
+
+\begin{landscape}
+	\vspace*{\fill}
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=0.70]{images/ej2/curvas.png}
+		\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
+	\end{figure}
+	\vspace*{\fill}
+\end{landscape}
 
 \end{document}
 
