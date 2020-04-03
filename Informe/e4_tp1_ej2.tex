@@ -1,4 +1,5 @@
 \documentclass[e4_tp1_main.tex]{subfiles}
+\externaldocument{e4_tp1_ej1.tex}
 
 \begin{document}
 
@@ -200,7 +201,7 @@ Un comportamiento no ideal del diodo que no se mencion\'o hasta ahora es su corr
 
 Desde luego, esto no es razonable: sabemos que ninguna fuente ni ninguna llave (y para el caso, ning\'un diodo) tiene la capacidad de entregar corriente infinita. Sin embargo, para plasmar este fen\'omeno  en nuestro an\'alisis de alguna manera, recurriremos nuevamente a la hoja de datos. Encontramos que cuando $\frac{di_R}{dt} = 50\nicefrac{\text{A}}{\upmu \text{s}}$, con una corriente de forward de 1A (que no es nuestro caso, pero nuevamente, esto es a modo ilustrativo), el tiempo de recovery es como m\'aximo $t_{rr}=75$ns, y la corriente $I_{rr} = 1.7$A. Utilizaremos pues estos datos para construir el pico de corriente inversa que se observar\'ia en la realidad, aunque no tenemos forma de saber si el valor dado de $\frac{di_R}{dt}$ es representativo.
 
-La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este trabajo. Su forma te\'orica se encuentra en la figura 8\todo{referencia cabeza}, pero aqu\'i simplemente la graficaremos como si fuese triangular. 
+La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este trabajo. Su forma te\'orica se encuentra en la figura \ref{fig:diode}, pero aqu\'i simplemente la graficaremos como si fuese triangular. 
 
 
 
@@ -208,6 +209,9 @@ La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este traba
 
 Se realizaron las simulaciones correspondientes a este circuito en LTSpice, utilizando el modelo ``real'' del diodo, y con las ESR obtenidas de las datasheets de los componentes correspondientes. Los resultados obtenidos, as\'i como las curvas te\'oricas realizadas a partir del desarrollo de la secci\'on anterior, se encuentran en la figura \ref{fig:buck-curvas}.
 
+En la curva de $v_L(t)$, se observa una diferencia de casi 0.3V entre los valores te\'oricos y simulados, lo cual representa un 6\% de error respecto de los $\sim5V$ tanto de $v_lmax$ como $v_lmin$ te\'oricos. Esto puede atribu\'irsele a una suma de factores: para empezar, Spice utiliza $V_{DF} \simeq 0.77V$, es decir, una tensi\'on un 4\% menor. Esto afecta a la tensi\'on de salida, que en la simulaci\'on es de 3.67V. Utilizando estos valores nuevamente en la f\'ormula te\'orica, se obtiene un valor m\'as cercano al simulado - si bien no el mismo. Tambi\'en es razonable suponer que Spice est\'a considerando m\'as par\'ametros internos del diodo que nosotros no tuvimos en cuenta (el resto de los componentes son ideales, con lo cual no tendr\'ian por qu\'e introducir error). 
+
+En el gr\'afico de $i_L(t)$ no se observan diferencias significativas entre ambas curvas. Sabemos, sin embargo, que existe una diferencia entre las pendientes de las rectas, considerando que las curvas de tensi\'on son visiblemente distintas.
 
 \begin{landscape}
 	\vspace*{\fill}
@@ -215,10 +219,23 @@ Se realizaron las simulaciones correspondientes a este circuito en LTSpice, util
 		\centering
 		\includegraphics[scale=0.70]{images/ej2/curvas.png}
 		\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
+		\label{fig:buck-curvas}
 	\end{figure}
-	\label{fig:buck-curvas}
 	\vspace*{\fill}
 \end{landscape}
+
+
+En cuanto a la corriente del diodo, las curvas coinciden la mayor parte del tiempo, lo cual es razonable: en s=0, son iguales a $i_L$, y en $T_{off}$  circula s\'olo la corriente inversa del diodo, que es en el peor caso de 200$\upmu$A y tan peque\~na como 10$\upmu$A (seg\'un la datasheet), y por lo tanto completamente despreciable los \'ordenes de magnitud que estamos trabajando.
+
+Aparece, sin embargo, una gran diferencia en el tiempo de recovery, que se puede apreciar en detalle en la figura \ref{fig:id-recovery}. Esto era lo que esper\'abamos, dado que el switching es ideal, y por lo tanto la derivada de corriente ser\'a tan grande como peque\~no sea el timestep utilizado en la simulaci\'on. El pico obtenido en la simulaci\'on superaba los 200A, pero desde luego este valor no es representativo. 
+
+\begin{figure}[th]
+	\centering
+	\includegraphics[scale=0.75]{images/ej2/id-recovery.png}
+	\caption{Corriente de recovery del diodo calculada (azul) y simulada (naranja).}
+	\label{fig:id-recovery}
+\end{figure}
+
 
 \end{document}
 
