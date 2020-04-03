@@ -7,7 +7,8 @@ Se procederá al análisis del circuito de la \autoref{fig:circuit_1}. El mismo 
 
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{images/ej1/circuit_1.png}
+  \centering
+  \includegraphics[width=\linewidth/2]{images/ej1/circuit_1.png}
   \caption{Circuito para análisis de disparo de transistor MOSFET}
   \label{fig:circuit_1}
 \end{figure}
@@ -16,7 +17,7 @@ Se procederá al análisis del circuito de la \autoref{fig:circuit_1}. El mismo 
 
 Los transistores $Q_1$ y $Q_2$ forman una configuración Totem-Pole, y se encuentran funcionando en saturación (push-pull output). 
 Nótese que para prender el transistor, se requiere cargar las capacidades internas del MOSFET, por lo que se requiere un pico de corriente que un generador de señales no es capaz de proveer. Utilizando esta configuración, se puede activar y desactivar este circuito utilizando un generador de señales, mientras que la corriente es provista por la fuente de tensión.
-Idealmente, la salida de este circuito valdrá $V_{out} = V_1 - 0.7V$ cuando el circuito esté activado, y $V_{out} = 0.7V$ cuando se encuentre desactivado. Este circuito afectará la curva de control del Gate, pues la misma no es un escalón ideal. Se tendrá en cuenta el delay para la interpretación de los resultados obtenidos, pero no nos centraremos en el análisis de los delays de esta configuración.
+Idealmente, la salida de este circuito valdrá $V_{out} = V_1 - 0.7V$ cuando el circuito esté activado, y $V_{out} = 0.7V$ cuando se encuentre desactivado. Este circuito afectará la curva de control del Gate, pues la misma no es un escalón ideal. Se tendrá en cuenta el delay para la interpretación de los resultados obtenidos (de ser necesario), pero no nos centraremos en el análisis de los delays de esta configuración.
 
 
 
@@ -39,7 +40,7 @@ Notese que $I_0$ corresponde a la corriente en el inductor cuando se prende el M
 
 \subsection{Conmutación MOSFET}
 
-Durante la conmutación del MOSFET, circula corriente por el Gate. Esta corriente es debido a capacidades internas del transistor, que se cargan durante la conmutación. Dichas capacidades corresponden básicamente a las cargas de la capa de inversión e ionización que se forman en el body del transistor para formar el canal N (Capacidad Gate-Source $C_{GS}$ - recordar que el Gate y el Source se encuentran cortocircuitados internamente), y las cargas asociadas a la capa de acumulación o de deplexión que se forma en el Drain del transistor (Capacidad Gate-Drain $C_{GS}$), que ayudan a minimizar la resistencia del MOSFET cuando se encuentra activado. Cabe destacar que estas capacidades dependen del tamaño de la capa de acumulación / deplexión, y por lo tanto cambian durante la conmutación del MOSFET. Se buscará introducir las ecuaciones a utilizar, sin entrar en detalle sobre el funcionamiento del transistor.
+Durante la conmutación del MOSFET, circula corriente por el Gate. Esta corriente es debida a capacidades internas del transistor, que se cargan durante la conmutación. Dichas capacidades corresponden básicamente a las cargas de la capa de inversión e ionización que se forman en el Body del transistor para formar el canal N (Capacidad Gate-Source $C_{GS}$ - recordar que el Body y el Source se encuentran cortocircuitados internamente), y las cargas asociadas a la capa de acumulación o de deplexión que se forma en el Drain del transistor (Capacidad Gate-Drain $C_{GD}$), que ayudan a minimizar la resistencia del MOSFET cuando se encuentra activado. Es importante destacar que esta capacidade depende del tamaño de la capa de acumulación / deplexión, y por lo tanto cambia durante la conmutación del MOSFET. Se buscará introducir las ecuaciones a utilizar, sin entrar en detalle sobre el funcionamiento del transistor.
 
 \subsubsection{Encendido del MOSFET}
 
@@ -59,13 +60,19 @@ t_{1} = -\tau_1 \ln\left(1-\frac{V_{G,I_D=I_0}}{V_1}\right)
 t_{ri} = t_{1} - t_{d,on}.
 \end{equation}
 
-Luego, cuando la corriente de drain llega al valor $I_0$, el valor de la tensión en el gate se mantiene temporalmente en $V_G=V_{G,I_D=I_0}$, por lo que la capacidad $C_{GS}$ deja de cargarse, mientras se sigue cargando $C_{GD}$ a corriente constante. A medida se cargue $C_{GD}$ se formará la capa de acumulación, bajando la resistencia $R_{DS}$, por lo que disminuye la tensión $V_{DS}$ hasta alcanzar el valor $V_{DS,on}$. Dado que la capacidad $C_{GD}$ varía durante este proceso, pues varían la longitud de la capa de acumulación, suele utilizarse el valor de la carga total $\Delta Q$ para estimar la duración de esta etapa. Con esto, el tiempo que transcurre desde que empieza a caer la tensión $V_{DS}$ hasta que alcanza el valor$V_{DS,on}$ puede estimarse según:
+Luego, cuando la corriente de drain llega al valor $I_0$, el valor de la tensión en el Gate se mantiene temporalmente en $V_G=V_{G,I_D=I_0}$, por lo que la capacidad $C_{GS}$ deja de cargarse, mientras se sigue cargando $C_{GD}$ a corriente constante. A medida se cargue $C_{GD}$ se formará la capa de acumulación, bajando la resistencia $R_{DS}$, por lo que disminuye la tensión $V_{DS}$ hasta alcanzar el valor $V_{DS,on}$. Dado que la capacidad $C_{GD}$ varía durante este proceso, pues varían la longitud de la capa de acumulación, suele utilizarse el valor de la carga total $\Delta Q$ para estimar la duración de esta etapa. Con esto, el tiempo que transcurre desde que empieza a caer la tensión $V_{DS}$ hasta que alcanza el valor $V_{DS,on}$ puede estimarse según:
 
 \begin{equation}
 t_{fv} = \Delta Q/I_{G,on} = \frac{\Delta Q R_1}{V_{1}-V_{G,I_D=I_0}}
 \end{equation}
 
-A lo largo de esta etapa, cambia el valor de $C_{GD,1}$ a $C_{GD,2}$. Luego, la tensión en el Gate sigue creciendo hasta llegar al valor $V_{GG}$. El tiempo característico asociado está dado por:
+A lo largo de esta etapa, cambia el valor de $C_{GD}$ de $C_{GD,1}$ a $C_{GD,2}$. El cambio de la tensión $V_{DG}$ en función del tiempo puede expresarse según
+
+\begin{equation}
+\frac{dV_{DG}}{dt} = \frac{V_{GG}-V_{G,I_D=I_0}}{R_1C_{GD}}.
+\end{equation}
+
+Una aproximación es considerar que esto ocurre en dos etapas: una donde $C_{GD} = C_{GD,1}$ y otra donde $C_{GD} = C_{GD,2}$. Luego, la tensión en el Gate sigue creciendo hasta llegar al valor $V_{GG}$. El tiempo característico asociado está dado por:
 
 \begin{equation}
 \tau_2 = R_1\tilde{C}_{G,2}
@@ -82,9 +89,9 @@ Primero, se comienzan a descargar las capacidades internas por el Gate, por lo q
 V_G(t) = V_{GG} \exp(-t/\tau_2)
 \end{equation}
 
-Esto ocurrirá hasta que la tensión $V_G$ alcance el valor $V_{G,I_D=I_0}$ en $t=t_2$. Puede demostrarse que:
+Esto ocurrirá hasta que la tensión $V_G$ alcance el valor $V_{G,I_D=I_0}$ en $t=t_{d,off}$. Puede demostrarse que:
 \begin{equation}
-t_2= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_{GG}}\right)
+t_{d,off}= -\tau_2\ln\left(\frac{V_{G,I_D=I_0}}{V_{GG}}\right)
 \end{equation}
 
 Luego, la tensión en el Gate permanecerá constante mientras se descarga $C_{GD,2}$ a corriente constante durante un tiempo $t_{rv}$. Analogo al caso de encendido, este tiempo está dado por
@@ -102,7 +109,7 @@ A medida que la tensión cae, comienza a deshacerse el canal formado, por lo que
 t_{fi}= -\tau_1\ln\left(\frac{V_{G,th}}{V_{G,I_D=I_0}}\right).
 \end{equation}
 
-Un gráfico esquemático mostrando la conmutación del MOSFET se muestra en la \autoref{fig:mosfet_theory}
+Un gráfico esquemático mostrando la conmutación del MOSFET se muestra en la \autoref{fig:mosfet_theory}.
 
 
 \begin{figure}[H]
@@ -132,7 +139,7 @@ El apagado del diodo es escencialmente el proceso inverso al encendido. Primero 
 
 El valor de $I_{rr}$ afecta en la conmutación del MOSFET. Nótese que este efecto se da cuando el diodo se apaga, es decir, durante el encendido del MOSFET.
 
-Por causa de la corriente $I_{rr}$, la corriente de drain $I_D$ crece hasta el valor $I_0+I_rr$, por lo que el valor de $V_{G}$ crece por arriba de $V_{G,I_D=I_0}$. Cuando el diodo se recupera y la corriente vuelve a cero (y, por lo tanto, la corriente $I_D$ baja a $I_0$), el valor de $V_G$ baja a $V_{G,I_D=I_0}$, y el cambio de tensión provee corriente adicional a la capacidad $C_{GD}$, produciendo que $V_{GD}$ y $V_{DS}$ decrezcan rapidamente durante este intervalo de recovery. Los efectos de la corriente $I_{rr}$ en la conmutación del MOSFET pueden observarse en la \autoref{fig:mosfet_irr}.
+Por causa de la corriente $I_{rr}$, la corriente de drain $I_D$ crece hasta el valor $I_0+I_{rr}$, por lo que el valor de $V_{G}$ crece por arriba de $V_{G,I_D=I_0}$. Cuando el diodo se recupera y la corriente vuelve a cero (y, por lo tanto, la corriente $I_D$ baja a $I_0$), el valor de $V_G$ baja a $V_{G,I_D=I_0}$, y el cambio de tensión provee corriente adicional a la capacidad $C_{GD}$, produciendo que $V_{GD}$ y $V_{DS}$ decrezcan rapidamente durante este intervalo de recovery. Los efectos de la corriente $I_{rr}$ en la conmutación del MOSFET pueden observarse en la \autoref{fig:mosfet_irr}.
 
 \begin{figure}[H]
   \centering
@@ -142,6 +149,9 @@ Por causa de la corriente $I_{rr}$, la corriente de drain $I_D$ crece hasta el v
 \end{figure}
 
 \subsection{Valores de los componentes y variables}
+
+Los valores de los componentes y las variables se muestran en la \autoref{tab:values_1} y la \autoref{tab:values_2}.
+
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -156,6 +166,7 @@ Valor & IRF530 & 220 $\mu H$ & MUR460 & 50 V & Ver Tabla $V_1$\\
 \hline
 \end{tabular}
 \caption{Valores de los componentes utilizados.}
+\label{tab:values_1}
 \end{table}
 
 \begin{table}[H]
@@ -174,31 +185,97 @@ $D$ (Duty Cycle) & $50\%$ \\
 \hline
 \end{tabular}
 \caption{Valores asociados a generador de $V_1$.}
+\label{tab:values_2}
 \end{table}
 
 \subsection{Búsqueda de parámetros en datasheet y cálculo de valores}
 
-Reemplazando los valores de estos, obtenemos lo siguiente:\\
+Los valores de los parámetros del circuito obtenidos a partir del datasheet del transistor se muestran en la \autoref{tab:obtained_values}.\\
+NOTA: CONSEGUIR VALORES DE CAPACIDADES POR SEPARADO! Y VERIFICAR VALORES DE CAPACIDADES
 \begin{table}[H]
 \centering
 \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
 Variable & $I_{0_{off}}$ & $I_{0_{on}}$ & $V_{G,th}$ & $V_{G,I_D=I_{0_{off}}}$   & $V_{G,I_D=I_{0_{on}}}$ & $\tilde{C}_{G,1}$ & $\tilde{C}_{GD,2}$ & $\Delta Q$  \\
 \hline
-Valor & 2,2138 A & 1,1195 A & 4 V & 4,8 V & 4,5 V & 650 pF & 1120 pF & 7 nC\\
+Valor & 2,21 A & 1,12 A & 4 V & 4,8 V & 4,5 V & 650 pF & 1120 pF & 7 nC\\
 \hline
 \end{tabular}
 \caption{Valores obtenidos del datasheet}
+\label{tab:obtained_values}
 \end{table}
 
-Y los tiempos de conmutación son:\\
-\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{rv}$ & $t_{fi}$  \\
+Variable & $C_{ds,1}$ & $C_{ds,2}$ & $C_{gd,1}$ & $C_{gd,2}$ & $C_{gs}$\\
 \hline
-Valor & 20,1600 nseg A & 3,0238 nseg & 66,6667 nseg & 145,8333 nseg & 3,0238 nseg\\
+Valor & 170 pF & 780 pF & 50 pF & 520 pF & 600 pF\\
 \hline
 \end{tabular}
+\caption{Valores de los capacitores}
+\label{tab:obtained_values}
+\end{table}
 
-Finalmente, se obtienen las siguientes curvas:
+Los tiempos de conmutación teóricos se muestran en la \autoref{tab:conmutation_times_theory}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{d,off}$ & $t_{rv}$ & $t_{fi}$  \\
+\hline
+Valor & $21,328$ ns A & $3,23$ ns & $71,43$ nseg & $127,62$ ns & $145,83$ ns & $11,85$ ns\\
+\hline
+\end{tabular}	
+\caption{Tiempos de conmutación calculados}
+\label{tab:conmutation_times_theory}
+\end{table}
+
+\subsection{Curvas teóricas}
+Las curvas obtenidas a partir de la teoría se muestran en la \autoref{fig:teoria}.
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\linewidth]{images/ej1/curvas_teoria.png}
+  \caption{Curvas teóricas de $V_G$, $V_{DS}$ e $I_D$.}
+  \label{fig:teoria}
+\end{figure}
+
+
+\subsection{Curvas Simuladas y valores obtenidos con la simulación}
+Las curvas de conmutación obtenidas en la simulación pueden observarse en la \autoref{fig:simulation}. Los valores de los tiempos de conmutación obtenidos a partir de la simulación se muestran en la \autoref{tab:conmutation_times_simulation}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Variable & $t_{d,on}$ & $t_{ri}$ & $t_{fv}$ & $t_{d,off}$ & $t_{rv}$ & $t_{fi}$  \\
+\hline
+Valor & $27,78$ ns & $13,6$ ns & $135,32$ nseg & $190$ ns & $320$ ns & $100$ ns\\
+\hline
+\end{tabular}	
+\caption{Tiempos de conmutación obtenidos a partir de la simulación.}
+\label{tab:conmutation_times_simulation}
+\end{table}
+
+\begin{landscape}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{images/ej1/curvas_simuladas.png}
+  \caption{Curvas simuladas de $V_G$, $V_{DS}$ e $I_D$, y detalle de conmutación de encendido y apagado.}
+  \label{fig:simulation}
+\end{figure}
+\end{landscape}
+
+\subsection{Comparación de resultados obtenidos}
+TODO: COMPARACION DE RESULTADOS. HABLAR DE PICO DEL DIODO
+
+QUE FALTA HACER:
+* OBTENER TIEMPOS A PARTIR DEL GRAFICO
+* OBTENER CAPACIDADES 
+* VERIFICAR TIEMPOS
+* ARREGLAR CURVA TEORICA MATLAB
+* AGREGAR GRAFICO
+* CONCLUSION
 \end{document}
