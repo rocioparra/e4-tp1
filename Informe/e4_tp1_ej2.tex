@@ -9,6 +9,15 @@
 El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor DC/DC donde la tensi\'on de salida es menor que la de entrada. El mismo puede observarse en la figura \ref{fig:buck-ideal}. En esta secci\'on, consideraremos ideal a la llave con la que se hace el switching.
 
 
+\begin{wrapfigure}[10]{L}{0.5\textwidth}
+	\centering
+	\includegraphics[width=0.45\textwidth]{images/ej2/buck_ideal.pdf}
+	\caption{Fuente buck con llave ideal}
+	\label{fig:buck-ideal}
+\end{wrapfigure}
+
+
+\begin{comment}
 \begin{figure}[ht]
 	\centering
 	
@@ -16,8 +25,16 @@ El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor 
 	\caption{Fuente buck con llave ideal}
 	\label{fig:buck-ideal}
 \end{figure}
+\end{comment}
 
+Los requeriminetos que debe cumplir esta fuente son:
+\begin{itemize}
+	\item $V_I$ = 9.0V
+	\item $V_O$ = 3.7V
+	\item $\nicefrac{\Delta V_O}{V_O}_{max}$ = 5\%
+\end{itemize}
 
+\begin{comment}
 Esta fuente debe cumplir los siguientes requerimientos:
 
 \begin{table}[ht]
@@ -29,7 +46,7 @@ Esta fuente debe cumplir los siguientes requerimientos:
 	\caption{Requerimientos de entrada/salida de la fuente}
 	\label{tab:vin-vout}
 \end{table}
-
+\end{comment}
 
 Esto se debe lograr a una frecuencia de switching de $f_s = 50$kHz. En cuanto a los componentes pasivos, los reactivos son sugeridos por la c\'atedra: $L=220\upmu$H y $C=10\upmu$F. La resistencia de carga  debe ser elegida de manera tal que, en primera instancia, la fuente funcione en modo continuo.
 
@@ -113,12 +130,12 @@ Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimo
 
 Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se observa en la figura \ref{fig:buck-esrs}.
 
-\begin{figure}[ht]
+\begin{wrapfigure}[10]{L}{0.4\textwidth}
 	\centering
-	\includegraphics[width=0.7\textwidth]{images/ej2/buck_esrs.pdf}
+	\includegraphics[width=0.35\textwidth]{images/ej2/buck_esrs.pdf}
 	\caption{Fuente buck, considerando las ESR de la bobina y del capacitor}
 	\label{fig:buck-esrs}
-\end{figure}
+\end{wrapfigure}
 
 
 Para seguir cumpliendo con $\langle V_L \rangle = 0$, debe cumplirse ahora que $\langle V_D \rangle = \langle V_O \rangle + \langle V_{rL} \rangle$. Como la corriente media de la bobina es la de salida, la tensi\'on media de su ESR no ser\'a otra cosa que $\frac{r_L}{R} \cdot V_O$. 
@@ -207,29 +224,35 @@ La forma que toma la curva de $i_D(t)$ en recovery supera el scope de este traba
 
 \subsection{Simulaci\'on}
 
+\begin{wrapfigure}[15]{R}{0.4\textwidth}
+	\centering
+	\includegraphics[width=0.35\textwidth]{images/ej2/id-recovery.png}
+	\caption{Corriente de recovery del diodo calculada (azul) y simulada (naranja).}
+	\label{fig:id-recovery}
+\end{wrapfigure}
+
 Se realizaron las simulaciones correspondientes a este circuito en LTSpice, utilizando el modelo ``real'' del diodo, y con las ESR obtenidas de las datasheets de los componentes correspondientes. Los resultados obtenidos, as\'i como las curvas te\'oricas realizadas a partir del desarrollo de la secci\'on anterior, se encuentran en la figura \ref{fig:buck-curvas}.
 
 En los gr\'afico de $v_L(t)$ e $i_L(t)$ no se observan diferencias significativas entre ambas curvas. Una fuente de error en estas curvas es que Spice utiliza $V_{DF} \simeq 0.77V$, es decir, una tensi\'on un 4\% menor a la que tomamos en el an\'alisis te\'orico. Esto afecta a la tensi\'on de salida, que en la simulaci\'on es de 3.67V. Ambos valores influyen en la cuenta de $v_L$ y, por lo tanto, de $i_L$.
 
 
+
+En cuanto a la corriente del diodo, las curvas coinciden la mayor parte del tiempo, lo cual es razonable: en s=0, son iguales a $i_L$, y en $T_{off}$  circula s\'olo la corriente inversa del diodo, que es en el peor caso de 200$\upmu$A y tan peque\~na como 10$\upmu$A (seg\'un la datasheet), y por lo tanto completamente despreciable los \'ordenes de magnitud que estamos trabajando.
+
+
+Aparece, sin embargo, una gran diferencia en el tiempo de recovery, que se puede apreciar en detalle en la figura \ref{fig:id-recovery}. Esto era lo que esper\'abamos, dado que el switching es ideal, y por lo tanto la derivada de corriente ser\'a tan grande como peque\~no sea el timestep utilizado en la simulaci\'on. El pico obtenido en la simulaci\'on superaba los 200A, pero desde luego este valor no es representativo. 
+
+
 \begin{figure}[ht]
 	\centering
-	\includegraphics[width=\textwidth]{images/ej2/curvas.png}
+	\includegraphics[width=0.75\textwidth]{images/ej2/curvas.png}
 	\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
 	\label{fig:buck-curvas}
 \end{figure}
 
 
-En cuanto a la corriente del diodo, las curvas coinciden la mayor parte del tiempo, lo cual es razonable: en s=0, son iguales a $i_L$, y en $T_{off}$  circula s\'olo la corriente inversa del diodo, que es en el peor caso de 200$\upmu$A y tan peque\~na como 10$\upmu$A (seg\'un la datasheet), y por lo tanto completamente despreciable los \'ordenes de magnitud que estamos trabajando.
 
-Aparece, sin embargo, una gran diferencia en el tiempo de recovery, que se puede apreciar en detalle en la figura \ref{fig:id-recovery}. Esto era lo que esper\'abamos, dado que el switching es ideal, y por lo tanto la derivada de corriente ser\'a tan grande como peque\~no sea el timestep utilizado en la simulaci\'on. El pico obtenido en la simulaci\'on superaba los 200A, pero desde luego este valor no es representativo. 
 
-\begin{figure}[th]
-	\centering
-	\includegraphics[scale=0.75]{images/ej2/id-recovery.png}
-	\caption{Corriente de recovery del diodo calculada (azul) y simulada (naranja).}
-	\label{fig:id-recovery}
-\end{figure}
 
 
 \end{document}
