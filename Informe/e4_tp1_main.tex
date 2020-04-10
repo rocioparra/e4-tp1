@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[9pt]{article}
 
 % preambulo:
 \input{e4_tp1_preamble.tex}
@@ -6,7 +6,7 @@
 
 \begin{document}
 
-\newgeometry{} % margenes default para la caratula
+\newgeometry{total={6in, 8in}, footskip=50px} % margenes default para la caratula
 % caratula:
 \input{e4_tp1_caratula.tex}
 
@@ -16,14 +16,14 @@
 
 
 % cambio los margenes para el resto del documento
-\newgeometry{total={6in, 8in}}
+\newgeometry{total={7in, 9in}, footskip=50px}
 
 \subfile{e4_tp1_ej1.tex}
-\clearpage % flush de los floats que queden y nueva pagina
+%\clearpage % flush de los floats que queden y nueva pagina
 \subfile{e4_tp1_ej2.tex}
-\clearpage
+%\clearpage
 \subfile{e4_tp1_ej3.tex}
-\clearpage
+%\clearpage
 \subfile{e4_tp1_ej4.tex}
 %\clearpage
 %\subfile{assd_tp3_ej5.tex}

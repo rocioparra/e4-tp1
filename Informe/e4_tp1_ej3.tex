@@ -14,6 +14,12 @@ A su vez, esto provoca que la corriente de la bobina tenga pendiente positiva po
 
 En cuanto al diodo, volvemos a observar que conmuta m\'as tarde por el aumento del duty, pero adem\'as en este caso los picos de inversa son acotados: llegan a un m\'aximo de $I_{rr}=1.84$A.
 
+	\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/ej3/curvas3.png}
+	\caption{Curvas simuladas de la fuente buck con llave ideal y con llave real: de arriba hacia abajo, tensi\'on en la llave, tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
+	\label{fig:curvas3}
+\end{figure}
 
 \subsection{Curvas de conmutaci\'on}
 
@@ -21,27 +27,15 @@ En cuanto a la conmutación, como se menciono previamente hay una clara diferenc
 
 Concluyendo, debido a los efectos que causan las diferencias de tensión y corriente entre ambos casos tenemos una disminución significativa de los tiempos de conmutación.
 
-\begin{landscape}
-	\vspace*{\fill}
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[scale=0.7]{images/ej3/curvas3.png}
-		\caption{Curvas simuladas de la fuente buck con llave ideal y con llave real: de arriba hacia abajo, tensi\'on en la llave, tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
-		\label{fig:curvas3}
-	\end{figure}
-	\vspace*{\fill}
-\end{landscape}
 
-\begin{landscape}
-	\vspace*{\fill}
+
+
 	\begin{figure}[ht]
 		\centering
-		\includegraphics[scale=0.67]{images/ej3/conmutacion3.png}
+		\includegraphics[width=\textwidth]{images/ej3/conmutacion3.png}
 		\caption{Curvas simuladas de conmutaci\'on de la llave con y sin la buck: de arriba hacia abajo, tensi\'on de gate, tensi\'on de drain, y corriente de drain.}
 		\label{fig:curvas3}
 	\end{figure}
-	\vspace*{\fill}
-\end{landscape}
 
 
 \end{document}

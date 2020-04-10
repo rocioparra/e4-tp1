@@ -211,16 +211,13 @@ Se realizaron las simulaciones correspondientes a este circuito en LTSpice, util
 
 En los gr\'afico de $v_L(t)$ e $i_L(t)$ no se observan diferencias significativas entre ambas curvas. Una fuente de error en estas curvas es que Spice utiliza $V_{DF} \simeq 0.77V$, es decir, una tensi\'on un 4\% menor a la que tomamos en el an\'alisis te\'orico. Esto afecta a la tensi\'on de salida, que en la simulaci\'on es de 3.67V. Ambos valores influyen en la cuenta de $v_L$ y, por lo tanto, de $i_L$.
 
-\begin{landscape}
-	\vspace*{\fill}
-	\begin{figure}[ht]
-		\centering
-		\includegraphics[scale=0.75]{images/ej2/curvas.png}
-		\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
-		\label{fig:buck-curvas}
-	\end{figure}
-	\vspace*{\fill}
-\end{landscape}
+
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=\textwidth]{images/ej2/curvas.png}
+	\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
+	\label{fig:buck-curvas}
+\end{figure}
 
 
 En cuanto a la corriente del diodo, las curvas coinciden la mayor parte del tiempo, lo cual es razonable: en s=0, son iguales a $i_L$, y en $T_{off}$  circula s\'olo la corriente inversa del diodo, que es en el peor caso de 200$\upmu$A y tan peque\~na como 10$\upmu$A (seg\'un la datasheet), y por lo tanto completamente despreciable los \'ordenes de magnitud que estamos trabajando.
