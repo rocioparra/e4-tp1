@@ -5,24 +5,15 @@
 
 \section{Ejercicio 2}
 
-
-El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor DC/DC donde la tensi\'on de salida es menor que la de entrada. El mismo puede observarse en la figura \ref{fig:buck-ideal}. En esta secci\'on, consideraremos ideal a la llave con la que se hace el switching.
-
-
-\begin{wrapfigure}[10]{L}{0.5\textwidth}
+\begin{wrapfigure}[10]{R}{0.4\textwidth}
 	\centering
-	\includegraphics[width=0.45\textwidth]{images/ej2/buck_ideal.pdf}
+	\includegraphics[width=0.4\textwidth]{images/ej2/buck_ideal.pdf}
 	\caption{Fuente buck con llave ideal}
 	\label{fig:buck-ideal}
 \end{wrapfigure}
 
-
-Los requeriminetos que debe cumplir esta fuente son:
-\begin{itemize}
-	\item $V_I$ = 9.0V
-	\item $V_O$ = 3.7V
-	\item $\nicefrac{\Delta V_O}{V_O}_{max}$ = 5\%
-\end{itemize}
+El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor DC/DC donde la tensi\'on de salida es menor que la de entrada. El mismo puede observarse en la figura \ref{fig:buck-ideal}. En esta secci\'on, consideraremos ideal a la llave con la que se hace el switching.
+Los requeriminetos que debe cumplir esta fuente son: $V_I$ = 9.0V, $V_O$ = 3.7V, $\nicefrac{\Delta V_O}{V_O}_{max}$ = 5\%.
 
 
 Esto se debe lograr a una frecuencia de switching de $f_s = 50$kHz. En cuanto a los componentes pasivos, los reactivos son sugeridos por la c\'atedra: $L=220\upmu$H y $C=10\upmu$F. La resistencia de carga  debe ser elegida de manera tal que, en primera instancia, la fuente funcione en modo continuo.
@@ -96,7 +87,7 @@ Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se ob
 
 \begin{wrapfigure}[11]{L}{0.4\textwidth}
 	\centering
-	\includegraphics[width=0.35\textwidth]{images/ej2/buck_esrs.pdf}
+	\includegraphics[width=0.4\textwidth]{images/ej2/buck_esrs.pdf}
 	\caption{Fuente buck, considerando las ESR de la bobina y del capacitor}
 	\label{fig:buck-esrs}
 \end{wrapfigure}
@@ -157,7 +148,7 @@ La forma que toma la curva de $i_D(t)$ en recovery supera el alcance de este tra
 
 \subsection{Simulaci\'on}
 
-\begin{wrapfigure}[14]{R}{0.4\textwidth}
+\begin{wrapfigure}[13]{R}{0.4\textwidth}
 	\centering
 	\includegraphics[width=0.35\textwidth]{images/ej2/id-recovery.pdf}
 	\caption{Corriente de recovery del diodo}
