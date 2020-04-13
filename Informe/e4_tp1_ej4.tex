@@ -1,4 +1,4 @@
-% !Tex root = e4_tp1_ej4
+% !TeX root = e4_tp1_ej4
 \documentclass[e4_tp1_main.tex]{subfiles}
 
 \begin{document}
@@ -18,54 +18,57 @@
 	A continuación se presentan las distintas señales solicitadas.
 	
 	\subsubsection{Señal de disparo y conmutación de la llave}
-	En las figuras \ref{fig:Encendido_llave_DCM} y \ref{fig:Apagado_llave_DCM} se muestran tanto para el encendido como para el apagado la señal de disparo junto con las señales de conmutación de la llave, a saber: tensión de gate, tensión drain-source y corriente de drain.
+	En la figura \ref{fig:llave_DCM} se muestran tanto para el encendido como para el apagado la señal de disparo junto con las señales de conmutación de la llave, a saber: tensión de gate, tensión drain-source y corriente de drain.
 	
- 	\begin{wrapfigure}{R}{0.5\textwidth}
-		\centering
+ 	\begin{figure}[ht]
+ 		\centering
 		\includegraphics[width=0.5\textwidth]{images/ej4/fig1.png}
-		\caption{Encendido de la llave: señal de disparo (rojo), tensi\'on de gate (azul), tensi\'on de drain (turquesa), corriente de drain (fucsia), potencia (verde).}
-		\label{fig:Encendido_llave_DCM}
-	\end{wrapfigure}
-	
-	Al observar el encendido de la llave trabajando en modo discontinuo en la figura \ref{fig:Encendido_llave_DCM}, se puede ver que la corriente de drain crece al ritmo de la corriente del inductor desde el momento inicial. Esto se debe a que la corriente del inductor es cero ya que el mismo se encontraba descargado al momento de encender la llave. De hecho, por este motivo, el crecimiento resulta despreciable durante la caída de tensión de drain-source, lo cual resulta en una pérdida de potencia prácticamente igual a cero, que se calculará más adelante. En el caso del continuo, la corriente de drain crecía rápidamente para igualar a la del inductor, resultando en una mayor pérdida de potencia dado el producto $V_{DS}*I_d$, que también se calculará al realizar el estudio de pérdidas en la conmutación.
-	
-	\begin{wrapfigure}{R}{0.5\textwidth}
-		\centering
 		\includegraphics[width=0.5\textwidth]{images/ej4/fig2.png}
-		\caption{Apagado de la llave: señal de disparo (rojo), tensi\'on de gate (azul), tensi\'on de drain (turquesa), corriente de drain (fucsia), potencia (verde).}
-		\label{fig:Apagado_llave_DCM}
-		
-	\end{wrapfigure}
+		\caption{Encendido (izquierda) y apagado (derecha) de la llave: señal de disparo (rojo), tensi\'on de gate (azul), tensi\'on de drain (turquesa), corriente de drain (fucsia), potencia (verde).}
+		\label{fig:llave_DCM}
+	\end{figure}
 	
-	En el apagado de la llave visible en la figura \ref{fig:Apagado_llave_DCM} no ocurre lo mismo que en el encendido ya que la corriente de drain estará regida por la corriente del inductor, la cual no será nula en este punto. No habrá una diferencia significativa en las formas de onda entre el modo discontinuo y el continuo, solamente se podrá observar una diferencia en las magnitudes de la corriente del drain, lo cual  se podrá apreciar en la potencia de pérdida instantánea. 
+	En el encendido se puede ver que la corriente de drain crece al ritmo de la corriente del inductor desde el momento inicial. Esto se debe a que la corriente del inductor es cero ya que el mismo se encontraba descargado al momento de encender la llave. De hecho, por este motivo, el crecimiento resulta despreciable durante la caída de tensión de drain-source, lo cual resulta en una pérdida de potencia prácticamente igual a cero, que se calculará más adelante. En el caso del continuo, la corriente de drain crecía rápidamente para igualar a la del inductor, resultando en una mayor pérdida de potencia dado el producto $V_{DS}*I_d$, que también se calculará al realizar el estudio de pérdidas en la conmutación.
+	
+
+	
+	En el apagado de la llave no ocurre lo mismo que en el encendido ya que la corriente de drain estará regida por la corriente del inductor, la cual no será nula en este punto. No habrá una diferencia significativa en las formas de onda entre el modo discontinuo y el continuo, solamente se podrá observar una diferencia en las magnitudes de la corriente del drain, lo cual  se podrá apreciar en la potencia de pérdida instantánea. 
 	
 	De este análisis podemos determinar que en el caso del apagado no se podrá determinar a priori cuál de los dos modos perderá más potencia por apagar la llave, ya que depende de las condiciones del circuito. En cambio, en el encendido, el modo discontinuo siempre contará con una pérdida de potencia prácticamente nula.
 	
 	
-	\subsubsection{Corriente en el inductor y en el diodo}
-	En la figura \ref{fig:Corriente_inductor_DCM} se muestra el gráfico correspondiente a las corrientes del inductor y del diodo trabajando en modo discontinuo.
 	
-	\begin{wrapfigure}{R}{0.5\textwidth}
+	
+	\subsubsection{Corriente en el inductor y en el diodo}
+	
+	\begin{figure}[htb]
 		\centering
-		\includegraphics[width=0.5\textwidth]{images/ej4/fig3.png}
-		\caption{Corriente en el inductor (azul) y en el diodo (verde)}
-		\label{fig:Corriente_inductor_DCM}
-	\end{wrapfigure}
+		\begin{minipage}{0.47\textwidth}
+			\centering	
+			\includegraphics[width=0.9\textwidth]{images/ej4/fig3.png}
+			\caption{Corriente en el inductor (azul) y en el diodo (verde)}
+			\label{fig:Corriente_inductor_DCM}		
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.47\textwidth}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/ej4/fig4.png}
+			\caption{Tensi\'on en el inductor}
+			\label{fig:Tension-inductor-DCM}
+		\end{minipage}
+	\end{figure}
+	
+	
+	En la figura \ref{fig:Corriente_inductor_DCM} se muestra el gráfico correspondiente a las corrientes del inductor y del diodo trabajando en modo discontinuo.
 	
 	En ésta se puede observar que al igual que en modo continuo el diodo sigue la corriente del inductor durante el tiempo en el que la llave se encuentra apagada. Sin embargo, al comparar con el caso continuo, se hace visible la diferencia entre el tiempo de crecimiento de la corriente respecto del de caída de la misma. El hecho de que el crecimiento de la corriente no sea simétrico respecto de la caída hace que el inductor se descargue antes de la próxima conmutación de la llave, generando así que la misma llegue hasta cero, haciendo que el circuito trabaje en modo discontinuo.
 	
 	Al llegar al valor de corriente igual a cero, se observa una oscilación de la misma a modo de ``ringing'' o resonancia. Esto se debe a los intercambios de energía producidos durante ese tiempo en el cual se genera un punto de alta impedancia producido por la llave abierta, el diodo que se encuentra en inversa, y la resistencia propia con el capacitor cargado en paralelo, los cuales en conjunto con el inductor dan lugar también a un RLC resonante.
 	
 	\subsubsection{Tensión en el inductor}
-	En la figura \ref{fig:Tensión_inductor_DCM} se muestra el gráfico correspondiente a la tensión del inductor y en modo discontinuo:
-	\begin{wrapfigure}{R}{0.6\textwidth}
-		\centering
-		\includegraphics[width=0.6\textwidth]{images/ej4/fig4.png}
-		\caption{Tensión en el inductor}
-		\label{fig:Tensión_inductor_DCM}
-	\end{wrapfigure}
-		
-		En ésta se puede observar claramente los tiempos de carga y descarga del inductor, siendo el tiempo de  carga mucho mayor al de descarga correspondiente. Aquí también se puede vislumbrar que el tiempo en el cual la llave permanece encendida es el mismo que el que la llave permanece apagada. Sin embargo, la tensión no se mantiene constante en todo el intervalo de tiempo en el que la llave está apagada debido al ``ringing'' explicado previamente en la corriente del inductor.
+	En la figura \ref{fig:Tension-inductor-DCM} se muestra el gráfico correspondiente a la tensión del inductor y en modo discontinuo:
+
+	En ésta se puede observar claramente los tiempos de carga y descarga del inductor, siendo el tiempo de  carga mucho mayor al de descarga correspondiente. Aquí también se puede vislumbrar que el tiempo en el cual la llave permanece encendida es el mismo que el que la llave permanece apagada. Sin embargo, la tensión no se mantiene constante en todo el intervalo de tiempo en el que la llave está apagada debido al ``ringing'' explicado previamente en la corriente del inductor.
 		
 
 	\subsection{Pérdidas en modo continuo y discontinuo}
