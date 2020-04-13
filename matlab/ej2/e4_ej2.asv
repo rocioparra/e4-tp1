@@ -110,7 +110,7 @@ plot(t, id);
 hold on;
 plot(t_spice, id_spice);
 xlim([1.997e-5, 2.011e-5]);
-ylim([-2, 0.5]);
+ylim([-2, 0.55]);
 formataxes('', 'Tiempo (s)', '$i_D(t)$ (A)', 'C\''alculo', 'Simulaci\''on');
 
 

@@ -12,6 +12,8 @@
 %% PAQUETES EXTRA %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\usepackage{hyperref}					% Hyperlinks on pdf (must be called before Geometry)
+
 \usepackage[a4paper, total={7in, 9in}, footskip=50px]{geometry} 
 
 \usepackage{subfiles}
@@ -54,7 +56,12 @@
 \cfoot{\thepage}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% NO AGREGAR PAQUETES DESPUES DE ESTO, ES IMPORTANTE QUE HYPERREF ESTE ULTIMO
-\usepackage[hidelinks]{hyperref} % hipervinculos sin cajitas rojas
 
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=blue,
+	citecolor=blue,    
+}
