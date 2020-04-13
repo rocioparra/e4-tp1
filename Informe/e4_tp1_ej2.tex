@@ -18,16 +18,6 @@ El circuito que analizaremos ahora es una fuente buck, es decir, un convertidor 
 \end{wrapfigure}
 
 
-\begin{comment}
-\begin{figure}[ht]
-	\centering
-	
-	\includegraphics[width=0.7\textwidth]{images/ej2/buck_ideal.pdf}
-	\caption{Fuente buck con llave ideal}
-	\label{fig:buck-ideal}
-\end{figure}
-\end{comment}
-
 Los requeriminetos que debe cumplir esta fuente son:
 \begin{itemize}
 	\item $V_I$ = 9.0V
@@ -35,19 +25,6 @@ Los requeriminetos que debe cumplir esta fuente son:
 	\item $\nicefrac{\Delta V_O}{V_O}_{max}$ = 5\%
 \end{itemize}
 
-\begin{comment}
-Esta fuente debe cumplir los siguientes requerimientos:
-
-\begin{table}[ht]
-	\centering
-	\begin{tabular}{c|c|c}
-		$V_I$ (V) & $V_O$ (V) & $\nicefrac{\Delta V_O}{V_O}_{max}$ (\%) \\ \hline
-		9.0       & 3.7       & 5                                       \\ 
-	\end{tabular}
-	\caption{Requerimientos de entrada/salida de la fuente}
-	\label{tab:vin-vout}
-\end{table}
-\end{comment}
 
 Esto se debe lograr a una frecuencia de switching de $f_s = 50$kHz. En cuanto a los componentes pasivos, los reactivos son sugeridos por la c\'atedra: $L=220\upmu$H y $C=10\upmu$F. La resistencia de carga  debe ser elegida de manera tal que, en primera instancia, la fuente funcione en modo continuo.
 
