@@ -1,6 +1,5 @@
 % !TeX root = e4_tp1_ej2
 \documentclass[e4_tp1_main.tex]{subfiles}
-\externaldocument{e4_tp1_ej1.tex}
 
 \begin{document}
 
@@ -36,28 +35,26 @@ Esto se debe lograr a una frecuencia de switching de $f_s = 50$kHz. En cuanto a 
 
 Para obtener la salida indicada, debemos seleccionar el duty adecuado. Esto se puede obtener planteando que en r\'egimen permanente, $\langle V_L \rangle = 0$, y por lo tanto, $\langle V_O \rangle = \langle V_D \rangle$. Considerando al diodo como ideal, su tensi\'on es 0 cuando la llave est\'a abierta, y $V_I$ cuando est\'a cerrada. Por lo tanto, despejado para $D$ obtenemos que:
 \begin{equation}
-	D = \frac{V_O}{V_I} \simeq 0.41
+	D = \nicefrac{V_O}{V_I} \simeq 0.41
 \end{equation}  
 
 Con este valor, podemos ahora obtener la corriente de boundary. Sabiendo que cuando la llave est\'a abierta, $V_L = L \frac{di_L}{dt} = -V_0$, y que esta condici\'on se mantiene por un tiempo $T_s \cdot (1-D)$, se obtiene:
 \begin{equation}
-	\Delta I_L = \frac{V_O}{L} \cdot (1-D) \cdot T_s \simeq 0.20\text{A}
+	\Delta I_L = \left(\nicefrac{V_O}{L}\right) \cdot (1-D) \cdot T_s \simeq 0.20\text{A}
+	\Rightarrow
+	I_{B} = \Delta I_L/2 \simeq 0.10\text{A}
 \end{equation} 
-
-Con lo cual la corriente de boundary es:
-\begin{equation}
-	I_{B} = \frac{\Delta I_L}{2} \simeq 0.10\text{A}
-\end{equation}
 
 Para que $I_O > I_B$, elegimos pues $R = 10\Omega$, lo cual resulta en una corriente de salida de 0.37A.
 
 El ripple de tensi\'on, por otro lado, es entonces de:
 \begin{equation}
-	\frac{\Delta V_O}{V_O} 
-	= \frac{1}{V_O} \cdot \frac{\Delta Q}{C} 
-	= \frac{1}{V_O} 
-	\cdot \frac{1}{C} \cdot \frac{1}{2} \cdot \frac{\Delta I_L}{2} \frac{T_s}{2}
-	\simeq 1.23 \%
+	\nicefrac{\Delta V_O}{V_O} 
+	= \left(\nicefrac{1}{V_O}\right) \cdot \left(\nicefrac{\Delta Q}{C}\right) 
+	= \left(\nicefrac{1}{V_O}\right) 
+	\cdot \left(\nicefrac{1}{C}\right) \cdot \left(\nicefrac{1}{2}\right) \cdot \left(\nicefrac{\Delta I_L}{2}\right) \left(\nicefrac{T_s}{2}\right)
+	\simeq 1.23 \%	
+	\label{eq:ripple1}
 \end{equation}
 
 Este valor se encuentra por debajo del m\'aximo aceptable de 5\%.
@@ -79,34 +76,27 @@ Una vez que contamos con este valor, podemos calcular el nuevo valor de la tensi
 
 Despejando para $D$, obtenemos:
 \begin{equation}
-	D = \frac{V_O + V_{DF}}{V_I + V_{DF}} 
-	= \frac{3.7V + 0.8V}{9V + 0.8V} 
+	D = (V_O + V_{DF})/(V_I + V_{DF}) 
+	= (3.7V + 0.8V)(9V + 0.8V)
 	\simeq 0.46 
 \end{equation}
 
 Esto a su vez cambiar\'a el valor de los ripples de tensi\'on y corriente, puesto que no s\'olo a la tensi\'on de la bobina durante $T_{off}$ se le suma la tensi\'on forward del diodo, sino que adem\'as al aumentar $D$, disminuye $T_{off}$. Resulta entonces: 
 \begin{equation}
-	\Delta I_L = \frac{V_O + V_{DF}}{L} \cdot (1-D) \cdot T_s
+	\Delta I_L = (V_O + V_{DF}) \cdot (1-D) \cdot T_s / L
 	\simeq 0.21\text{A}
 \end{equation} 
 
-Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimos operando en modo continuo con 10$\Omega$ de carga. En cuanto al ripple de tensi\'on:
-\begin{equation}
-\frac{\Delta V_O}{V_O}  
-= \frac{1}{V_O} 
-\cdot \frac{1}{C} \cdot \frac{1}{2} \cdot \frac{\Delta I_L}{2} \frac{T_s}{2}
-\simeq 1.53 \%
-\label{eq:result-ripple-diodo}
-\end{equation}
+Con este valor, la corriente de boundary sube a 0.11A, con lo cual a\'un seguimos operando en modo continuo con 10$\Omega$ de carga. En cuanto al ripple de tensi\'on, utilizando la ecuaci\'on \ref{eq:ripple1} con el nuevo valor de $\Delta I_L$, es 1.53\%.
 
 
 \subsubsection{Considerando las ESR de la bobina y el capacitor}
 
 Si tenemos en cuenta las ESR, el circuito queda con la configuraci\'on que se observa en la figura \ref{fig:buck-esrs}.
 
-\begin{wrapfigure}[11]{L}{0.5\textwidth}
+\begin{wrapfigure}[11]{L}{0.4\textwidth}
 	\centering
-	\includegraphics[width=0.4\textwidth]{images/ej2/buck_esrs.pdf}
+	\includegraphics[width=0.35\textwidth]{images/ej2/buck_esrs.pdf}
 	\caption{Fuente buck, considerando las ESR de la bobina y del capacitor}
 	\label{fig:buck-esrs}
 \end{wrapfigure}
@@ -120,15 +110,14 @@ c\'atedra\footnote{
 } lista a esta ESR con el valor de 0.65$\Omega$.
 Despejando para $D$, obtenemos pues:
 \begin{equation}
-	D = \frac{V_O \cdot \left( 1+ \frac{r_L}{R}\right)+ V_{DF}}{V_I + V_{DF}} 
-= \frac{3.7V \cdot \left( 1+ \frac{0.65\Omega}{10\Omega}\right) + 0.8V}{9V + 0.8V} 
+	D = \left(V_O \cdot \left( 1+ \frac{r_L}{R}\right)+ V_{DF}\right)/(V_I + V_{DF}) 
 \simeq 0.48 
 \end{equation}
 
 
 El ripple de corriente, despreciando nuevamente $i_C$ y sus cambios frente a $I_O$, ahora es:
 \begin{equation}
-	\Delta I_L = \frac{V_{DF} + V_O(1+\nicefrac{r_L}{R})}{L} \cdot (1-D) \cdot T_s \simeq 0.22\text{A} 
+	\Delta I_L = (V_{DF} + V_O) \cdot (1+\nicefrac{r_L}{R} \cdot (1-D) \cdot T_s / L\simeq 0.22\text{A} 
 \end{equation}
 
 En cuanto al ripple de tensi\'on, el mismo se ve afectado por la ESR del capacitor, ya que ahora $V_O = V_C + V_{rC}$, con lo cual los efectos de ambos componentes deben tenerse en cuenta. El \textit{application report} ``Output Ripple Voltage for Buck Switching Regulator'' de Texas Instruments\footnote{ 
@@ -149,11 +138,11 @@ Se propone utilizar un capacitor de la serie ESL de KEMET Electronic Components\
 }, en particular el de 39$\upmu$F, 50V, que tiene 0.23$\Omega$ de ESR. Se obtiene entonces $\uptau = 8.97 \upmu$s, con lo cual se est\'a en el \'ultimo caso de la ecuaci\'on \ref{eq:ripple-real}, y entonces:
 
 \begin{equation}
-	\frac{\Delta V_O}{V_O} = \frac{\Delta I_L \cdot r_C}{V_O} = 1.36 \%
+	\nicefrac{\Delta V_O}{V_O} = \Delta I_L \cdot r_C/V_O = 1.36 \%
 	\label{eq:result-ripple-esr}
 \end{equation}
 
-Llama la atenci\'on que este resultado es menor al obtenido en la ecuaci\'on \ref{eq:result-ripple-diodo}, antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es casi cuatro veces m\'as grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) en la ecuaci\'on \ref{eq:result-ripple-esr} que en la  \ref{eq:result-ripple-diodo}.
+Llama la atenci\'on que este resultado es menor al obtenido antes de introducir la ESR. Sin embargo, si se corrigiese por el hecho de que ahora el capacitor es casi cuatro veces m\'as grande, s\'i se estar\'ia obteniendo un resultado menos favorable (aunque m\'as preciso) con esta f\'ormula.
 
 
 \subsubsection{Considerando la corriente de recovery del diodo}
@@ -162,7 +151,7 @@ Un comportamiento no ideal del diodo que no se mencion\'o hasta ahora es su corr
 
 Desde luego, esto no es razonable: sabemos que ninguna fuente ni ninguna llave (y para el caso, ning\'un diodo) tiene la capacidad de entregar corriente infinita. Por lo tanto, para plasmar este fen\'omeno  en nuestro an\'alisis de alguna manera, recurriremos nuevamente a la hoja de datos. Encontramos que cuando $\frac{di_R}{dt} = 50\nicefrac{\text{A}}{\upmu \text{s}}$, con una corriente de forward de 1A (que no es nuestro caso, pero nuevamente, esto es a modo ilustrativo), el tiempo de recovery es como m\'aximo $t_{rr}=75$ns, y la corriente $I_{rr} = 1.7$A. Utilizaremos pues estos datos para construir el pico de corriente inversa que se observar\'ia en la realidad.
 
-La forma que toma la curva de $i_D(t)$ en recovery supera el alcance de este trabajo. Su forma te\'orica se encuentra en la figura \ref{fig:diode}, pero aqu\'i simplemente la graficaremos como si fuese triangular. 
+La forma que toma la curva de $i_D(t)$ en recovery supera el alcance de este trabajo, y aqu\'i simplemente la graficaremos como si fuese triangular. 
 
 
 
@@ -190,7 +179,7 @@ Aparece, sin embargo, una gran diferencia en el tiempo de recovery, que se puede
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.75\textwidth]{images/ej2/curvas.pdf}
-	\caption{Curvas te\'oricas y simuladas de la fuente buck: de arriba hacia abajo, estado de la llave (abierta en 0), tensi\'on en la bobina, corriente en la bobina, y corriente en el diodo.}
+	\caption{Curvas te\'oricas y simuladas de la fuente buck}
 	\label{fig:buck-curvas}
 \end{figure}
 
