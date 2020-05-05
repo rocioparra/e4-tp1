@@ -1,3 +1,4 @@
+% !Tex root = e4_tp1_ej1
 \documentclass[e4_tp1_main.tex]{subfiles}
 
 \begin{document}
@@ -26,7 +27,7 @@ I_1 &= \frac{V_2}{R_2}\frac{(1-\exp(-t_1/\tau_{RL}))\exp(t_2/\tau_{RL})}{\exp(t_
 
 Durante la conmutación del MOSFET, se cargan y descargan capacidades internas. Las capacidades a considerar en en análisis de conmutación son la Capacidad Gate-Source $C_{GS}$ y la capacidad Gate-Drain $C_{GD}$.
 
-\begin{wrapfigure}{R}{0.4\textwidth}
+\begin{wrapfigure}[20]{R}{0.4\textwidth}
   \centering
   \includegraphics[width=\linewidth]{images/ej1/theory_mosfet.png}
   \caption{Curvas de tensión y corriente en el MOSFET durante el encendido}
@@ -56,7 +57,7 @@ Notar que, al igual que durante el prendido, la capacidad $C_{GD}$ cambia de val
 A medida que la tensión cae, comienza a deshacerse el canal formado, por lo que baja el valor de $I_D$ hasta hacerse nulo cuando $V_G=V_{G,th}$. Esto ocurre luego de un intervalo $t_{fi}= -\tau_1\ln\left((V_{G,th})/(V_{G,I_D=I_0}\right)$.
 
 \subsection{Diodo}
-\begin{wrapfigure}[21]{R}{0.5\textwidth}
+\begin{wrapfigure}[20]{R}{0.5\textwidth}
   \centering
   \includegraphics[width=\linewidth]{images/ej1/diode_irr.png}
   \caption{Efectos de $I_{rr}$ en el encendido del MOSFET.}
@@ -91,6 +92,7 @@ $f_s$ & $50$ KHz \\
 $D$ (Duty Cycle) & $50\%$ \\
 \hline
 \end{tabular}
+\hspace{0.02\textwidth}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 Componente & $Q_1$ & $Q_2$ & $R_1$ & $R_2$ & $R_3$ \\

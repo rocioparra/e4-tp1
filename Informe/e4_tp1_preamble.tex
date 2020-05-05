@@ -16,7 +16,7 @@
 
 \usepackage{hyperref}					% Hyperlinks on pdf (must be called before Geometry)
 
-\usepackage[a4paper, total={7in, 9in}, footskip=50px]{geometry} 
+\usepackage[a4paper, total={7in, 9.25in}, footskip=25px]{geometry} 
 
 \usepackage{subfiles}
 \usepackage{xr} % permite referencias a labels de archivos externos con \externaldocument{filename.tex}
@@ -36,7 +36,8 @@
 \usepackage{float} % posicion H para floats
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{wrapfig} % figuras wrappeadas por texto
-%\usepackage{floatrow}
+\usepackage{mwe}
+
 \usepackage{afterpage} % permite hacer clear de floats sin page break 
 
 
@@ -57,7 +58,15 @@
 \rhead{Grupo 2}
 \cfoot{\thepage}
 
+\usepackage{setspace}
+%\setlength{\intextsep}{5pt}%
+%\setstretch{2}%
+%\setlength{\belowcaptionskip}{-\baselineskip}\addtolength{\belowcaptionskip}{1.6ex}%
+%\setlength{\abovecaptionskip}{-\baselineskip}\addtolength{\abovecaptionskip}{1.6ex}%
+\addtolength{\intextsep}{-0.5\baselineskip}
 
+\usepackage{dblfnote}
+\DFNalwaysdouble 
 
 
 \hypersetup{
